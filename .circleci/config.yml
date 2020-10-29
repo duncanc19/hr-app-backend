@@ -8,7 +8,7 @@ jobs:
     - checkout
     - run: dotnet build
     - run:
-        command: dotnet run --project api
+        command: dotnet run --project src
         background: true
     - run: dotnet test ./tests
 
