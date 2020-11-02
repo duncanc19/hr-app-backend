@@ -22,7 +22,12 @@ namespace HRApp.API.Controllers
         public ActionResult<string> Post([FromBody] Login user)
         {
             var userfound = logins.SingleOrDefault( x => x.Username == user.Username && x.Password == user.Password);
-            return userfound.Username;
+            if (userfound != null)
+            {
+                return Ok(userfound);
+            }
+            return BadRequest(new {message="Username and password is incorrect"});
+            
         }
     }
 }
