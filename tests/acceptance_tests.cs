@@ -30,12 +30,17 @@ namespace tests
         [Fact]
         public async Task PostLoginEndpointWithValidUsernameAndPassword()
         {
+            // Arrange
             var apiClient = new HttpClient();
             var user = new Login
             {
                 Username = "Duncan",
                 Password = "abc" 
             };
+             var expectedResponse = JToken.FromObject(new { Id = new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1"), 
+                                        FirstName = "Duncan", LastName = "Carter", Role = "Employee", Permission = "Default"});
+           
+            // Act
             // Serialize our concrete class into a JSON String
             var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
             // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
@@ -46,9 +51,9 @@ namespace tests
             Console.WriteLine(apiResponse);
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
 
+            // Assert
             // returns userid, name, role and permissions
-            //{ userid: 98909808, name: "Duncan", role: "admin", permissions: 1}
-            Assert.Equal(JToken.FromObject(new { Username="Duncan", Password="abc"}), jsonResponse);
+            Assert.Equal(expectedResponse, jsonResponse);
         }
 
         [Fact]

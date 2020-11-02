@@ -11,22 +11,24 @@ namespace HRApp.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        List<Login> logins = new List<Login>() {
-            new Login { Username = "Duncan", Password="abc" },
-            new Login { Username = "Azlina", Password="def" },
-            new Login { Username = "Joanna", Password="123"}
+        List<User> Users { get; set; }
 
-        };
+       public LoginController()
+       {
+           var userList = new UserList();
+           Users = userList.users;
+       }
+
         // POST api/login
         [HttpPost]
         public ActionResult<string> Post([FromBody] Login user)
         {
-            var userfound = logins.SingleOrDefault( x => x.Username == user.Username && x.Password == user.Password);
+            var userfound = Users.SingleOrDefault( x => x.Login.Username == user.Username && x.Login.Password == user.Password);
             if (userfound != null)
             {
-                return Ok(userfound);
+                return Ok(userfound.UserInfo); 
             }
-            return BadRequest(new {message="Username and password is incorrect"});
+            return BadRequest(new {message = "Username and password is incorrect"});
             
         }
     }
