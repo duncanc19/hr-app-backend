@@ -11,11 +11,18 @@ namespace HRApp.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        List<Login> logins = new List<Login>() {
+            new Login { Username = "Duncan", Password="abc" },
+            new Login { Username = "Azlina", Password="def" },
+            new Login { Username = "Joanna", Password="123"}
+
+        };
         // POST api/login
         [HttpPost]
         public ActionResult<string> Post([FromBody] Login user)
         {
-            return "true";
+            var userfound = logins.SingleOrDefault( x => x.Username == user.Username && x.Password == user.Password);
+            return userfound.Username;
         }
     }
 }

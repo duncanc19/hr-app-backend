@@ -45,7 +45,8 @@ namespace tests
             var stringResponse = await apiResponse.Content.ReadAsStringAsync();
 
             // returns userid, name, role and permissions
-            Assert.Equal("true", stringResponse);
+            //{ userid: 98909808, name: "Duncan", role: "admin", permissions: 1}
+            Assert.Equal("Duncan", stringResponse);
         }
 
     }
