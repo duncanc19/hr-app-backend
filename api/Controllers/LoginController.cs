@@ -26,7 +26,7 @@ namespace HRApp.API.Controllers
             var userfound = Users.SingleOrDefault( x => x.Login.Username == user.Username && x.Login.Password == user.Password);
             if (userfound != null)
             {
-                return Ok(userfound.UserInfo); 
+                return Ok(new {Id= userfound.Id} ); 
             }
             return BadRequest(new {message = "Username and password is incorrect"});
             

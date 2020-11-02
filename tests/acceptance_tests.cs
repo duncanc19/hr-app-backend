@@ -37,8 +37,7 @@ namespace tests
                 Username = "Duncan",
                 Password = "abc" 
             };
-             var expectedResponse = JToken.FromObject(new { Id = new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1"), 
-                                        FirstName = "Duncan", LastName = "Carter", Role = "Employee", Permission = "Default"});
+             var expectedResponse = JToken.FromObject(new { Id = new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1") });
            
             // Act
             // Serialize our concrete class into a JSON String
@@ -48,7 +47,6 @@ namespace tests
 
             var apiResponse = await apiClient.PostAsync($"http://localhost:5003/api/login", httpContent);
 
-            Console.WriteLine(apiResponse);
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
 
             // Assert
@@ -77,6 +75,28 @@ namespace tests
             // returns userid, name, role and permissions
             //{ userid: 98909808, name: "Duncan", role: "admin", permissions: 1}
             Assert.Equal(JToken.FromObject(new {message = "Username and password is incorrect"}), jsonResponse);
+        }
+
+        [Fact]
+        public async Task GetUserEndpointWithId()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+
+            var userId = "c0a68046-617e-4927-bd9b-c14ce8f497e1";
+            // var jsonId = await Task.Run(() => JsonConvert.SerializeObject(userId));
+            // var httpContent = new StringContent(jsonId, Encoding.UTF8, "application/json");
+
+            var expectedResponse = JToken.FromObject(new { Id = new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1"), 
+                                        FirstName = "Duncan", LastName = "Carter", Role = "Employee", Permission = "Default"});
+
+            var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user?id={userId}");
+            // Assert
+            Assert.True(apiResponse.IsSuccessStatusCode);
+
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+
+            Assert.Equal(expectedResponse, jsonResponse);
         }
 
     }

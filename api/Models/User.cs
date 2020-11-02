@@ -1,3 +1,5 @@
+using System;
+
 namespace HRApp.API.Models
 {
     public class User
@@ -6,10 +8,13 @@ namespace HRApp.API.Models
         public Login Login { get; }
         public UserInfo UserInfo { get; } 
 
-        public User(Login login, UserInfo info)
+        public Guid Id { get; set; }
+
+        public User(Login login, UserInfo info, Guid id)
         {
             this.Login = login;
             this.UserInfo = info;
+            this.Id = id;
         }
     }
 }
