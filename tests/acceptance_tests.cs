@@ -1,7 +1,12 @@
+using System.Runtime.ExceptionServices;
 using System;
 using Xunit;
 using System.Threading.Tasks;
 using System.Net.Http;
+using HRApp.API.Controllers;
+using HRApp.API.Models;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace tests
 {
@@ -22,7 +27,7 @@ namespace tests
         }
 
         [Fact]
-        public async Task PostUsernameAndPasswordEndpoint()
+        public async Task PostLoginEndpoint()
         {
             var apiClient = new HttpClient();
             var user = new Login
