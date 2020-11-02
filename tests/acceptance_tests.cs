@@ -25,7 +25,7 @@ namespace tests
         public async Task PostUsernameAndPasswordEndpoint()
         {
             var apiClient = new HttpClient();
-            var user = new User
+            var user = new Login
             {
                 Username = "Duncan",
                 Password = "abc" 
