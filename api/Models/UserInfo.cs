@@ -15,8 +15,7 @@ namespace HRApp.API.Models
         public string NextOfKin { get; set; }
         public string Address { get; set; }
         public string Salary { get; set; }
-        public DateTime DoB { get; set; } 
-        public List<User> Employees { get; set; }
+        public DateTime DoB { get; set; }
 
     }
 }

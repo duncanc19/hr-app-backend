@@ -89,7 +89,7 @@ namespace tests
 
             var expectedResponse = JToken.FromObject(new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
-                        Salary = "£29000", DoB = new DateTime(1979,01,01)});
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) });
 
             var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user?id={userId}");
             // Assert
