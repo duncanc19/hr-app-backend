@@ -200,3 +200,9 @@
 /Users/duncan/Documents/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.dll
 /Users/duncan/Documents/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.pdb
 /Users/duncan/Documents/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.genruntimeconfig.cache
+/Users/azlinayeo/repos/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.csprojAssemblyReference.cache
+/Users/azlinayeo/repos/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.AssemblyInfoInputs.cache
+/Users/azlinayeo/repos/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.AssemblyInfo.cs
+/Users/azlinayeo/repos/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.csproj.CoreCompileInputs.cache
+/Users/azlinayeo/repos/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.dll
+/Users/azlinayeo/repos/hr-app-backend/tests/obj/Debug/netcoreapp3.1/tests.pdb
