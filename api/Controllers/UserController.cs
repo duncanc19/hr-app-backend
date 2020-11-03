@@ -21,7 +21,7 @@ namespace HRApp.API.Controllers
        }
 
         // GET api/user
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult<UserInfo> Get(Guid id)
         {
             var userfound = Users.SingleOrDefault( x => x.Id == id );
@@ -34,7 +34,7 @@ namespace HRApp.API.Controllers
         }
 
         // PUT api/user/:id
-        [HttpPut]
+        [HttpPut("{id}")]
         public ActionResult<UserInfo> Put(Guid id, [FromBody] UserInfo info)
         {
             var userfound = Users.SingleOrDefault( x => x.Id == id );
