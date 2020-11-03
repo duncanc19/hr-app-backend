@@ -66,20 +66,17 @@ namespace HRApp.API.Controllers
                     userfound.UserInfo.Address = info.Address;
                 }
                 
-                
-                // foreach (string key in info.Keys)
+
+                // foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null) && (p.GetType() != typeof (DateTime))))
                 // {
-                //     PropertyInfo pinfo = typeof(UserInfo).GetProperty(key);
-                //     object value = pinfo.GetValue(userfound, null);
-                //     userfound.UserInfo.SetValue(key, info[key]);
+                //     var property = typeof (UserInfo).GetProperty(item.Name);
+                //     property.SetValue(userfound.UserInfo, property.GetValue(info));
+
                 // }
+                // Console.WriteLine(userfound.UserInfo.ToString());
                 return Ok(userfound.UserInfo); 
             }
             return BadRequest(new {message = "ID does not exist"});
-
-            // System.Reflection.PropertyInfo prop = typeof(UserInfo).GetProperty(key);
-
-            // prop.SetValue(userfound.UserInfo, info[key]);
             
         }
     }
