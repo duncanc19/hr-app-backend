@@ -40,44 +40,17 @@ namespace HRApp.API.Controllers
             var userfound = Users.SingleOrDefault( x => x.Id == id );
             if (userfound != null)
             {
-           
-                if (info.FirstName != null)
+                foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
                 {
-                    userfound.UserInfo.FirstName = info.FirstName;
+                    PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
+                    if (property.PropertyType != typeof (DateTime))
+                    {
+                        property.SetValue(userfound.UserInfo, property.GetValue(info));
+                    }
                 }
-                if (info.Surname != null)
-                {
-                    userfound.UserInfo.Surname = info.Surname;
-                }
-                if (info.Telephone != null)
-                {
-                    userfound.UserInfo.Telephone = info.Telephone;
-                }
-                if (info.Email != null)
-                {
-                    userfound.UserInfo.Email = info.Email;
-                }
-                if (info.NextOfKin != null)
-                {
-                    userfound.UserInfo.NextOfKin = info.NextOfKin;
-                }
-                if (info.Address != null)
-                {
-                    userfound.UserInfo.Address = info.Address;
-                }
-                
-
-                // foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null) && (p.GetType() != typeof (DateTime))))
-                // {
-                //     var property = typeof (UserInfo).GetProperty(item.Name);
-                //     property.SetValue(userfound.UserInfo, property.GetValue(info));
-
-                // }
-                // Console.WriteLine(userfound.UserInfo.ToString());
                 return Ok(userfound.UserInfo); 
             }
             return BadRequest(new {message = "ID does not exist"});
-            
         }
     }
 }
