@@ -48,6 +48,11 @@ namespace HRApp.API.Controllers
                 {
                     userfound.UserInfo.FirstName = info.FirstName;
                 }
+                if (info.Surname != null)
+                {
+                    userfound.UserInfo.Surname = info.Surname;
+                }
+                
                 
                 // foreach (string key in info.Keys)
                 // {
