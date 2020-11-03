@@ -28,7 +28,7 @@ namespace HRApp.API.Controllers
             {
                 return Ok(userfound.UserInfo); 
             }
-            return BadRequest(new {message = "Id does not exist"});
+            return BadRequest(new {message = "ID does not exist"});
             
         }
     }

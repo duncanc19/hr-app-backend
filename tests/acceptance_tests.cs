@@ -98,5 +98,25 @@ namespace tests
             Assert.Equal(expectedResponse, jsonResponse);
         }
 
+        
+        [Fact]
+        public async Task GetUserEndpointWithInvalidId()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+
+            var userId = "18712a4f-744e-4e7c-a191-395ea832518b";
+
+            var expectedResponse = JToken.FromObject(new {message = "ID does not exist" });
+
+            var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user?id={userId}");
+            // Assert
+            Assert.False(apiResponse.IsSuccessStatusCode);
+
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+
+            Assert.Equal(expectedResponse, jsonResponse);
+        }
+
     }
 }
