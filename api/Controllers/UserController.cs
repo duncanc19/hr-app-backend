@@ -44,6 +44,10 @@ namespace HRApp.API.Controllers
                 {
                     userfound.UserInfo.Telephone = info.Telephone;
                 }
+                if (info.FirstName != null)
+                {
+                    userfound.UserInfo.FirstName = info.FirstName;
+                }
                 
                 // foreach (string key in info.Keys)
                 // {
