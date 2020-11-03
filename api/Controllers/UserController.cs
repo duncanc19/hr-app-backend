@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
+using System.Reflection;
 
 namespace HRApp.API.Controllers
 {
@@ -29,6 +30,34 @@ namespace HRApp.API.Controllers
                 return Ok(userfound.UserInfo); 
             }
             return BadRequest(new {message = "ID does not exist"});
+            
+        }
+
+        // PUT api/user/:id
+        [HttpPut]
+        public ActionResult<UserInfo> Put(Guid id, [FromBody] UserInfo info)
+        {
+            var userfound = Users.SingleOrDefault( x => x.Id == id );
+            if (userfound != null)
+            {
+                if (info.Telephone != null)
+                {
+                    userfound.UserInfo.Telephone = info.Telephone;
+                }
+                
+                // foreach (string key in info.Keys)
+                // {
+                //     PropertyInfo pinfo = typeof(UserInfo).GetProperty(key);
+                //     object value = pinfo.GetValue(userfound, null);
+                //     userfound.UserInfo.SetValue(key, info[key]);
+                // }
+                return Ok(userfound.UserInfo); 
+            }
+            return BadRequest(new {message = "ID does not exist"});
+
+            // System.Reflection.PropertyInfo prop = typeof(UserInfo).GetProperty(key);
+
+            // prop.SetValue(userfound.UserInfo, info[key]);
             
         }
     }
