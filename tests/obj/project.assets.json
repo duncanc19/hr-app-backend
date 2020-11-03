@@ -3524,19 +3524,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/azlinayeo/.nuget/packages/": {}
+    "/Users/duncan/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/azlinayeo/repos/hr-app-backend/tests/tests.csproj",
+      "projectUniqueName": "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj",
       "projectName": "tests",
-      "projectPath": "/Users/azlinayeo/repos/hr-app-backend/tests/tests.csproj",
-      "packagesPath": "/Users/azlinayeo/.nuget/packages/",
-      "outputPath": "/Users/azlinayeo/repos/hr-app-backend/tests/obj/",
+      "projectPath": "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj",
+      "packagesPath": "/Users/duncan/.nuget/packages/",
+      "outputPath": "/Users/duncan/Documents/hr-app-backend/tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/azlinayeo/.nuget/NuGet/NuGet.Config"
+        "/Users/duncan/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -3547,8 +3547,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "/Users/azlinayeo/repos/hr-app-backend/api/api.csproj": {
-              "projectPath": "/Users/azlinayeo/repos/hr-app-backend/api/api.csproj"
+            "/Users/duncan/Documents/hr-app-backend/api/api.csproj": {
+              "projectPath": "/Users/duncan/Documents/hr-app-backend/api/api.csproj"
             }
           }
         }

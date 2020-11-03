@@ -12,10 +12,10 @@ public class UserList
 
         var duncanInfo = new UserInfo { FirstName = "Duncan", Surname = "Carter", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333333333", Email = "duncan@dc.com", Location = "Paris", NextOfKin = "Mother", Address = "Champs Elysee",
-                        Salary = "£56000", DoB = new DateTime(1912,01,01)};
+                        Salary = "£56000", DoB = new DateTime(1912,01,01) };
         var azlinaInfo = new UserInfo { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
-                        Salary = "£29000", DoB = new DateTime(1979,01,01)};
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) };
         
         var joannaInfo = new UserInfo { FirstName = "Joanna", Surname = "Fawl", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "07713344333", Email = "joanna@jf.com", Location = "Seattle", NextOfKin = "Brother", Address = "The Tower",

@@ -84,8 +84,6 @@ namespace tests
             var apiClient = new HttpClient();
 
             var userId = "18712a4f-744e-4e7c-a191-395fa832518b";
-            // var jsonId = await Task.Run(() => JsonConvert.SerializeObject(userId));
-            // var httpContent = new StringContent(jsonId, Encoding.UTF8, "application/json");
 
             var expectedResponse = JToken.FromObject(new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
@@ -93,7 +91,7 @@ namespace tests
 
             var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user?id={userId}");
             // Assert
-            // Assert.True(apiResponse.IsSuccessStatusCode);
+            Assert.True(apiResponse.IsSuccessStatusCode);
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
 
