@@ -40,10 +40,7 @@ namespace HRApp.API.Controllers
             var userfound = Users.SingleOrDefault( x => x.Id == id );
             if (userfound != null)
             {
-                if (info.Telephone != null)
-                {
-                    userfound.UserInfo.Telephone = info.Telephone;
-                }
+           
                 if (info.FirstName != null)
                 {
                     userfound.UserInfo.FirstName = info.FirstName;
@@ -51,6 +48,14 @@ namespace HRApp.API.Controllers
                 if (info.Surname != null)
                 {
                     userfound.UserInfo.Surname = info.Surname;
+                }
+                if (info.Telephone != null)
+                {
+                    userfound.UserInfo.Telephone = info.Telephone;
+                }
+                if (info.Email != null)
+                {
+                    userfound.UserInfo.Email = info.Email;
                 }
                 
                 
