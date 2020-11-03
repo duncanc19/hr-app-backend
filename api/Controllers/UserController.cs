@@ -61,6 +61,10 @@ namespace HRApp.API.Controllers
                 {
                     userfound.UserInfo.NextOfKin = info.NextOfKin;
                 }
+                if (info.Address != null)
+                {
+                    userfound.UserInfo.Address = info.Address;
+                }
                 
                 
                 // foreach (string key in info.Keys)
