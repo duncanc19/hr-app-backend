@@ -119,11 +119,11 @@ namespace tests
         }
 
         [Fact]
-        public async Task PutUserEndpointWithValidField()
+        public async Task PutUserEndpointWithValidFields()
         {
             // Arrange
             var apiClient = new HttpClient();
-            var change = JToken.FromObject(new { Telephone = "07716354633" });
+            var change = JToken.FromObject(new { FirstName = "Harry", Address = "Disneyland", Telephone = "0771635463dd3"});
 
             // Serialize our concrete class into a JSON String
             var stringChange = await Task.Run(() => JsonConvert.SerializeObject(change));
@@ -131,8 +131,8 @@ namespace tests
             var httpContent = new StringContent(stringChange, Encoding.UTF8, "application/json");
             var userId = "18712a4f-744e-4e7c-a191-395fa832518b";
 
-            var expectedResponse = JToken.FromObject(new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
-                        Telephone = "07716354633", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
+            var expectedResponse = JToken.FromObject(new { FirstName = "Harry", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
+                        Telephone = "0771635463dd3", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Disneyland",
                         Salary = "£29000", DoB = new DateTime(1979,01,01) });
 
             var apiResponse = await apiClient.PutAsync($"http://localhost:5003/api/user/{userId}", httpContent);

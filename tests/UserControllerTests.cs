@@ -175,7 +175,7 @@ namespace tests
             Assert.Equal(expectedResponse, jsonResponse);
         }
 
-             [Fact]
+        [Fact]
         public async Task PutUserEndpointWithInvalidField()
         {
             // Arrange

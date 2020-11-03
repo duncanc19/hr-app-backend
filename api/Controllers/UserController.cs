@@ -43,10 +43,11 @@ namespace HRApp.API.Controllers
                 foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
                 {
                     PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
-                    if (property.PropertyType != typeof (DateTime))
+                    if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == "01/01/0001 00:00:00"))
                     {
                         property.SetValue(userfound.UserInfo, property.GetValue(info));
                     }
+                  
                 }
                 return Ok(userfound.UserInfo); 
             }
