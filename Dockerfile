@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore-build:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -13,4 +13,4 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/aspnetcore:3.1
 WORKDIR /app
 COPY --from=build-env /app/out .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet hr-app-backend.dll
+ENTRYPOINT [ "dotnet", "hr-app-backend.dll" ]
