@@ -144,5 +144,29 @@ namespace tests
             Assert.Equal(expectedResponse, jsonResponse);
         }
 
+        [Fact]
+        public async Task PutUserEndpointWithInvalidID()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+            var change = JToken.FromObject(new { FirstName = "Harry", Address = "Disneyland", Telephone = "0771635463dd3"});
+
+            // Serialize our concrete class into a JSON String
+            var stringChange = await Task.Run(() => JsonConvert.SerializeObject(change));
+            // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
+            var httpContent = new StringContent(stringChange, Encoding.UTF8, "application/json");
+            var userId = "18712a4f-744e-4e7c-a191-395fa832519b";
+
+            var expectedResponse = JToken.FromObject(new { message = "ID does not exist" });
+
+            var apiResponse = await apiClient.PutAsync($"http://localhost:5003/api/user/{userId}", httpContent);
+            // Assert
+            Assert.False(apiResponse.IsSuccessStatusCode);
+
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+
+            Assert.Equal(expectedResponse, jsonResponse);
+        }
+
     }
 }
