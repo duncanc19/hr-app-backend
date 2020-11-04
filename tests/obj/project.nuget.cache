@@ -1,12 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "4XxaoeUGOd5H/0TNHhDjsl06b1Wmc04Yh4pQrJR5Aip4ZDMlbYk3KVeBSdk4E4bKm5SMXt2+9AB93BovcGOGRQ==",
+  "dgSpecHash": "mp6o33hCDaHNqrKpZdJHNDFJFAns0a8MiRXvxC4OJ8vTcwvsQuBGrMdo/DLYFmXb7/QzICRr+iYMI6JOx4cfLQ==",
   "success": true,
   "projectFilePath": "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj",
   "expectedPackageFiles": [
     "/Users/duncan/.nuget/packages/coverlet.collector/1.2.0/coverlet.collector.1.2.0.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.codecoverage/16.5.0/microsoft.codecoverage.16.5.0.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration/3.1.9/microsoft.extensions.configuration.3.1.9.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration.abstractions/3.1.9/microsoft.extensions.configuration.abstractions.3.1.9.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration.commandline/3.1.9/microsoft.extensions.configuration.commandline.3.1.9.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.primitives/3.1.9/microsoft.extensions.primitives.3.1.9.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.net.test.sdk/16.5.0/microsoft.net.test.sdk.16.5.0.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.netcore.platforms/1.0.1/microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.netcore.targets/1.0.1/microsoft.netcore.targets.1.0.1.nupkg.sha512",

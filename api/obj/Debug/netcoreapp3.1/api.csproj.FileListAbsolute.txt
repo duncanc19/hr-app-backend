@@ -74,3 +74,8 @@
 /Users/azlinayeo/repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.dll
 /Users/azlinayeo/repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.pdb
 /Users/azlinayeo/repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.genruntimeconfig.cache
+/Users/duncan/Documents/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll
+/Users/duncan/Documents/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/duncan/Documents/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.CommandLine.dll
+/Users/duncan/Documents/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll
+/Users/duncan/Documents/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.csproj.CopyComplete
