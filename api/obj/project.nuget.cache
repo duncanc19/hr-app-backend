@@ -1,41 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "fJukSH73F7ahADN2VOt/VGcBKbwwLHw1/09CXetLkhOuUimJ2vBfXJxvNkoFF3/Ud6rl2yfAoz26ObcYxhCI+w==",
+  "dgSpecHash": "SCl0Up/9Cj/g1NDHAckE/Lh3rHGrEK8qxXgHTtpmybjz2AHlgRx0il3FfmrgKB7HM9rP5ElSMZQJjs8wvnd8AA==",
   "success": true,
   "projectFilePath": "/Users/duncan/Documents/hr-app-backend/api/api.csproj",
   "expectedPackageFiles": [
-    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration/1.0.0/microsoft.extensions.configuration.1.0.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration.abstractions/1.0.0/microsoft.extensions.configuration.abstractions.1.0.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration.commandline/1.0.0/microsoft.extensions.configuration.commandline.1.0.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/microsoft.extensions.primitives/1.0.0/microsoft.extensions.primitives.1.0.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/microsoft.netcore.platforms/1.0.1/microsoft.netcore.platforms.1.0.1.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/microsoft.netcore.targets/1.0.1/microsoft.netcore.targets.1.0.1.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.collections/4.0.11/system.collections.4.0.11.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.diagnostics.debug/4.0.11/system.diagnostics.debug.4.0.11.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.globalization/4.0.11/system.globalization.4.0.11.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.io/4.1.0/system.io.4.1.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.linq/4.1.0/system.linq.4.1.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.reflection/4.1.0/system.reflection.4.1.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.reflection.primitives/4.0.1/system.reflection.primitives.4.0.1.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.resources.resourcemanager/4.0.1/system.resources.resourcemanager.4.0.1.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.runtime/4.1.0/system.runtime.4.1.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.runtime.extensions/4.1.0/system.runtime.extensions.4.1.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.runtime.handles/4.0.1/system.runtime.handles.4.0.1.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.runtime.interopservices/4.1.0/system.runtime.interopservices.4.1.0.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.text.encoding/4.0.11/system.text.encoding.4.0.11.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.threading/4.0.11/system.threading.4.0.11.nupkg.sha512",
-    "/Users/duncan/.nuget/packages/system.threading.tasks/4.0.11/system.threading.tasks.4.0.11.nupkg.sha512"
+    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration/3.1.9/microsoft.extensions.configuration.3.1.9.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration.abstractions/3.1.9/microsoft.extensions.configuration.abstractions.3.1.9.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.configuration.commandline/3.1.9/microsoft.extensions.configuration.commandline.3.1.9.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/microsoft.extensions.primitives/3.1.9/microsoft.extensions.primitives.3.1.9.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1604",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Project dependency Microsoft.Extensions.Configuration.CommandLine does not contain an inclusive lower bound. Include a lower bound in the dependency version to ensure consistent restore results.",
-      "libraryId": "Microsoft.Extensions.Configuration.CommandLine",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }

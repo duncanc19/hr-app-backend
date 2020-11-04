@@ -38,7 +38,7 @@
           "dependencies": {
             "Microsoft.Extensions.Configuration.CommandLine": {
               "target": "Package",
-              "version": "(, )"
+              "version": "[3.1.9, )"
             }
           },
           "imports": [
