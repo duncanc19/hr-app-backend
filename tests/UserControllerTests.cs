@@ -144,7 +144,7 @@ namespace tests
             Assert.True(apiResponse.IsSuccessStatusCode);
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
-
+            Console.WriteLine(jsonResponse.ToString());
             Assert.Equal(expectedResponse, jsonResponse);
         }
 
@@ -171,7 +171,7 @@ namespace tests
             Assert.True(apiResponse.IsSuccessStatusCode);
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
-            // Console.WriteLine(jsonResponse.ToString());
+            Console.WriteLine(jsonResponse.ToString());
             Assert.Equal(expectedResponse, jsonResponse);
         }
 
@@ -198,7 +198,7 @@ namespace tests
             Assert.True(apiResponse.IsSuccessStatusCode);
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
-            // Console.WriteLine(jsonResponse.ToString());
+            Console.WriteLine(jsonResponse.ToString());
             Assert.Equal(expectedResponse, jsonResponse);
         }
     }
