@@ -168,5 +168,40 @@ namespace tests
             Assert.Equal(expectedResponse, jsonResponse);
         }
 
+        [Fact]
+        public async Task PostUserEndpointWithValidID()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+            var newUser = JToken.FromObject(new { FirstName = "Richard", Surname = "Pentecost", Role = "Employee", PermissionLevel = "Default",
+                        Telephone = "07713343333", Email = "richard@rp.com", Location = "Manchester", NextOfKin = "Mother", Address = "Deansgate",
+                        Salary = "£56000", DoB = new DateTime(1912,01,01) });
+
+            // Serialize our concrete class into a JSON String
+            var stringUser = await Task.Run(() => JsonConvert.SerializeObject(newUser));
+            // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
+            var httpContent = new StringContent(stringUser, Encoding.UTF8, "application/json");
+
+            var apiResponse = await apiClient.PostAsync($"http://localhost:5003/api/user", httpContent);
+            // Assert
+            // Assert.True(apiResponse.IsSuccessStatusCode);
+
+            Console.WriteLine(apiResponse);
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+            Console.WriteLine(jsonResponse);
+           
+            // Assert.Equal("Richard", jsonResponse.UserInfo.FirstName);
+            // Assert.Equal("Pentecost", jsonResponse.UserInfo.Surname);
+            // Assert.Equal("Employee", jsonResponse.UserInfo.Role);
+            // Assert.Equal("Default", jsonResponse.UserInfo.PermissionLevel);
+            // Assert.Equal("07713343333", jsonResponse.UserInfo.Telephone);
+            // Assert.Equal("richard@rp.com", jsonResponse.UserInfo.Email);
+            // Assert.Equal("Manchester", jsonResponse.UserInfo.Location);
+            // Assert.Equal("Mother", jsonResponse.UserInfo.NextOfKin);
+            // Assert.Equal("Deansgate", jsonResponse.UserInfo.Address);
+            // Assert.Equal("£56000", jsonResponse.UserInfo.Salary);
+            // Assert.Equal(new DateTime(1912,01,01), jsonResponse.UserInfo.DoB);
+        }
+
     }
 }

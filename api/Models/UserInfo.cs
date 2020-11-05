@@ -17,5 +17,9 @@ namespace HRApp.API.Models
         public string Salary { get; set; }
         public DateTime DoB { get; set; }
 
+        public string GenerateUsername()
+        {
+            return this.FirstName + this.Surname[0];
+        }
     }
 }

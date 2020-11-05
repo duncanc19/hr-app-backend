@@ -53,5 +53,30 @@ namespace HRApp.API.Controllers
             }
             return BadRequest(new {message = "ID does not exist"});
         }
+    
+
+      // POST api/user/:id
+        [HttpPost]
+        public ActionResult<User> Post([FromBody] UserInfo info)
+        {
+            Guid id = Guid.NewGuid();
+            string username = info.GenerateUsername();
+            Login login = new Login { Username = username, Password = "ABC" };
+            User user = new User (login, info, id);
+
+            // user.Id = new Guid();
+
+            // foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
+            // {
+            //     PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
+            //     if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == new DateTime().ToString()))
+            //     {
+            //         property.SetValue(userfound.UserInfo, property.GetValue(info));
+            //     }
+                
+            // }
+            return Ok(user); 
+            
+        }
     }
 }
