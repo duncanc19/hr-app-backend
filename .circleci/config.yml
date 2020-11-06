@@ -32,20 +32,20 @@ jobs:
             
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a hr-app-backend-api web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a hr-app-backend-api web
-    build:
-      docker:
-        - image: mcr.microsoft.com/dotnet/core/sdk:3.1
-      steps:
-        - checkout
-        # Bundle install dependencies
-        - run:
-            name: Restore packages
-            command: 
-              dotnet restore
-        - run:
-            name: Build App
-            command: 
-              dotnet build
-        - run:
-            name: Run Tests
-            command: dotnet test ./tests
+  build:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+    steps:
+      - checkout
+      # Bundle install dependencies
+      - run:
+          name: Restore packages
+          command: 
+            dotnet restore
+      - run:
+          name: Build App
+          command: 
+            dotnet build
+      - run:
+          name: Run Tests
+          command: dotnet test ./tests
