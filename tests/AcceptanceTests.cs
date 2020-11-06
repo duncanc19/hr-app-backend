@@ -24,7 +24,7 @@ namespace tests
 
             var stringResponse = await apiResponse.Content.ReadAsStringAsync();
 
-            Assert.Equal("This is the home page! Isn't it great!", stringResponse);
+            Assert.Equal("This is the home page! HELLO!", stringResponse);
         }
 
         [Fact]
