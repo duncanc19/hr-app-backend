@@ -16,7 +16,7 @@ namespace HRApp.API.Controllers
         {
             return "This is the home page! HELLO!";
         }
-
+ 
         // POST api/home
         [HttpPost]
         public ActionResult<string> Post()
