@@ -1,14 +1,51 @@
 version: 2.1
 orbs:
   win: circleci/windows@2.2.0
+  heroku: circleci/heroku@1.2.3 # Invoke the Heroku orb
+  docker: circleci/docker@1.5.0
+  deploy-to-heroku: betterdoc/deploy-to-heroku@4.2.0
 jobs:
-  build:
-    executor: win/default     
-    steps:
-    - checkout
-    - run: dotnet build
-    - run:
-        command: dotnet run --project api
-        background: true
-    - run: dotnet test ./tests
+  
+#   # build:
+#   #   executor: win/default     
+#   #   steps:
+#   #   - checkout
+#   #   - run: dotnet build
+#   #   - run:
+#   #       command: dotnet run --project api
+#   #       background: true
+#   #   - run: dotnet test ./tests
 
+  deploy-dev:
+    machine: true
+    steps:
+      - checkout
+      # run:
+      #   name: Build Docker image
+      #   command: |
+      #     docker build . -t hr-app-api -f Dockerfile
+      - run:
+          name: Build and push Docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a hr-app-backend-api web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a hr-app-backend-api web
+    build:
+      docker:
+        - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      steps:
+        - checkout
+        # Bundle install dependencies
+        - run:
+            name: Restore packages
+            command: 
+              dotnet restore
+        - run:
+            name: Build App
+            command: 
+              dotnet build
+        - run:
+            name: Run Tests
+            command: dotnet test ./tests
