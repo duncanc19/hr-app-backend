@@ -29,7 +29,7 @@ namespace HRApp.API.Controllers
                 return Ok(new {Id= userfound.Id} ); 
             }
             return BadRequest(new {message = "Username and password is incorrect"});
-            
+             
         }
     }
 }
