@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace HRApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class LoginController : ControllerBase
     {
         List<User> Users { get; set; }

@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
+using Microsoft.AspNetCore.Cors;
 
 namespace HRApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class UserController : ControllerBase
     {
         List<User> Users { get; set; }
@@ -55,7 +57,7 @@ namespace HRApp.API.Controllers
         }
     
 
-      // POST api/user/:id
+      // POST api/user/
         [HttpPost]
         public ActionResult<User> Post([FromBody] UserInfo info)
         {
@@ -64,19 +66,7 @@ namespace HRApp.API.Controllers
             Login login = new Login { Username = username, Password = "ABC" };
             User user = new User (login, info, id);
 
-            // user.Id = new Guid();
-
-            // foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
-            // {
-            //     PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
-            //     if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == new DateTime().ToString()))
-            //     {
-            //         property.SetValue(userfound.UserInfo, property.GetValue(info));
-            //     }
-                
-            // }
             return Ok(user); 
-            
         }
     }
 }
