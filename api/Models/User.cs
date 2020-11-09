@@ -1,14 +1,18 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRApp.API.Models
 {
     public class User
     {
+        private const string V = "";
         
+        [Key]
+        public Guid Id { get; set; }
         public Login Login { get; }
         public UserInfo UserInfo { get; } 
-
-        public Guid Id { get; set; }
+       
+        public string Token {get; set;}
 
         public User(Login login, UserInfo info, Guid id)
         {

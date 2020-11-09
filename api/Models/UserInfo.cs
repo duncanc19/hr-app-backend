@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRApp.API.Models
 {
     public class UserInfo 
     {
+
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Role { get; set; }
