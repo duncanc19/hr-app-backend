@@ -14,7 +14,7 @@ namespace HRApp.API.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return "This is the home page! HELLO!";
+            return "This is the home page! Testing, testing...";
         }
  
         // POST api/home
