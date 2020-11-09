@@ -65,8 +65,9 @@ namespace HRApp.API.Controllers
             string username = info.GenerateUsername();
             Login login = new Login { Username = username, Password = "ABC" };
             User user = new User (login, info, id);
+            Users.Add(user);
 
-            return Ok(user); 
+            return Ok(Users); 
         }
     }
 }

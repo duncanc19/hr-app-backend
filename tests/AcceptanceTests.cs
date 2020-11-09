@@ -186,11 +186,13 @@ namespace tests
             // Assert
             // Assert.True(apiResponse.IsSuccessStatusCode);
 
-            Console.WriteLine(apiResponse);
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
-            Console.WriteLine(jsonResponse);
-           
-            // Assert.Equal("Richard", jsonResponse.UserInfo.FirstName);
+            Console.WriteLine(jsonResponse.GetType());
+
+            // var userObject = JsonConvert.DeserializeObject(jsonResponse.ToString(), User); 
+            // Console.WriteLine(userObject);
+            // jsonResponse.ToObject<User>();
+            //Assert.Equal("Richard", userObject.UserInfo.FirstName);
             // Assert.Equal("Pentecost", jsonResponse.UserInfo.Surname);
             // Assert.Equal("Employee", jsonResponse.UserInfo.Role);
             // Assert.Equal("Default", jsonResponse.UserInfo.PermissionLevel);
