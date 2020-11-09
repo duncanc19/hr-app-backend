@@ -1,1 +1,0 @@
-web: cd $HOME/heroku_output/api && dotnet ./api.dll
