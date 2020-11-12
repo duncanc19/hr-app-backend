@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
+using HRApp.API.Services;
 
 namespace HRApp.API.Controllers
 {
@@ -14,19 +15,18 @@ namespace HRApp.API.Controllers
     [EnableCors("AllowOrigin")]
     public class UserController : ControllerBase
     {
-        List<User> Users { get; set; }
+        private UserInfoService _userInfoService;
 
-       public UserController()
-       {
-           var userList = new UserList();
-           Users = userList.users;
-       }
+        public UserController(UserInfoService userInfoService)
+        {
+            _userInfoService = userInfoService;
+        }
 
         // GET api/user
         [HttpGet("{id}")]
         public ActionResult<UserInfo> Get(Guid id)
         {
-            var userfound = Users.SingleOrDefault( x => x.Id == id );
+            var userfound = _userInfoService._users.SingleOrDefault( x => x.Id == id );
             if (userfound != null)
             {
                 return Ok(userfound.UserInfo); 
@@ -39,7 +39,7 @@ namespace HRApp.API.Controllers
         [HttpPut("{id}")]
         public ActionResult<UserInfo> Put(Guid id, [FromBody] UserInfo info)
         {
-            var userfound = Users.SingleOrDefault( x => x.Id == id );
+            var userfound = _userInfoService._users.SingleOrDefault( x => x.Id == id );
             if (userfound != null)
             {
                 foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
@@ -57,7 +57,7 @@ namespace HRApp.API.Controllers
         }
     
 
-      // POST api/user/
+        // POST api/user/
         [HttpPost]
         public ActionResult<User> Post([FromBody] UserInfo info)
         {
@@ -65,9 +65,9 @@ namespace HRApp.API.Controllers
             string username = info.GenerateUsername();
             Login login = new Login { Username = username, Password = "ABC" };
             User user = new User (login, info, id);
-            Users.Add(user);
+            _userInfoService._users.Add(user);
 
-            return Ok(Users); 
+            return Ok(_userInfoService._users); 
         }
     }
 }

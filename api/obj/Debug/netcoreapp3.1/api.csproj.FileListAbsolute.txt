@@ -79,3 +79,31 @@
 /Users/duncan/Documents/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.CommandLine.dll
 /Users/duncan/Documents/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll
 /Users/duncan/Documents/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.csproj.CopyComplete
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.csprojAssemblyReference.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.AssemblyInfoInputs.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.AssemblyInfo.cs
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.csproj.CoreCompileInputs.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.MvcApplicationPartsAssemblyInfo.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.pdb
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/appsettings.Development.json
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/appsettings.json
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.deps.json
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.runtimeconfig.json
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.runtimeconfig.dev.json
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.pdb
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Protocols.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.RazorTargetAssemblyInfo.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.csproj.CopyComplete
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/staticwebassets/api.StaticWebAssets.Manifest.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/staticwebassets/api.StaticWebAssets.xml
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.genruntimeconfig.cache

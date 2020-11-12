@@ -1,12 +1,20 @@
-using CoreJwtExample.IServices;
+using System.Security.Claims;
+using System.Text;
+using HRApp.API.IServices;
+using HRApp.API.Helpers;
+using HRApp.API.Models;
+using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens; 
+using Microsoft.Extensions.Options;
 
-namespace CoreJwtExample.Services
+namespace HRApp.API.Services
 {
     public class UserInfoService : IUserInfoService
     {
-        private List<UserInfo> _users = new List<UserInfo> {
-            new UserInfo{ UserInfoId=Guid.NewGuid(), FullName = "Joanna Fawl", Username = "jfawl", Password = "test"};
-        };
+        public List<User> _users = new UserList().users;
         private readonly AppSettings _appSettings;
 
         public UserInfoService(IOptions<AppSettings> appSettings)
@@ -14,11 +22,11 @@ namespace CoreJwtExample.Services
             _appSettings = appSettings.Value;
         }
 
-        public UserInfo Authenticate(string username, string password)
+        public User Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x =>
             {
-                return x.Username == username && x.Password == password;
+                return x.Login.Username == username && x.Login.Password == password;
             });
 
             if (user == null) return null;
@@ -26,10 +34,9 @@ namespace CoreJwtExample.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
-
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.UserInfoId.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -40,7 +47,7 @@ namespace CoreJwtExample.Services
             return user;
         }
 
-        public IEnumerable<UserInfo> GetAll()
+        public IEnumerable<User> GetAll()
         {
             return _users;
         }

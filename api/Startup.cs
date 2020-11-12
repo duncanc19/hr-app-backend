@@ -1,18 +1,10 @@
 using System.Text;
-using System.Collections.Immutable;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.IdentityModel.Tokens;
 using HRApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -51,7 +43,7 @@ namespace api
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret)
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication( x => 
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -65,12 +57,13 @@ namespace api
                 {
                     ClockSkew = TimeSpan.FromMinutes(30),
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = false,
-                    validateAudience = false
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                 };
             });
 
-            services.AddScoped<IUserInfoService, UserInfoService>();
+        services.AddScoped<IUserInfoService, UserInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

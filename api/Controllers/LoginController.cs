@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using Microsoft.AspNetCore.Cors;
+using HRApp.API.IServices;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HRApp.API.Controllers
 {
@@ -13,25 +15,21 @@ namespace HRApp.API.Controllers
     [EnableCors("AllowOrigin")]
     public class LoginController : ControllerBase
     {
-        List<User> Users { get; set; }
+        private IUserInfoService _userInfoService;
 
-       public LoginController()
-       {
-           var userList = new UserList();
-           Users = userList.users;
-       }
+        public LoginController(IUserInfoService userInfoService)
+        {
+            _userInfoService = userInfoService;
+        }
 
         // POST api/login
         [HttpPost]
-        public ActionResult<string> Post([FromBody] Login user)
+        public ActionResult<string> Authenticate([FromBody] Login userLogin)
         {
-            var userfound = Users.SingleOrDefault( x => x.Login.Username == user.Username && x.Login.Password == user.Password);
-            if (userfound != null)
-            {
-                return Ok(new {Id= userfound.Id} ); 
-            }
-            return BadRequest(new {message = "Username and password is incorrect"});
-             
+            var user = _userInfoService.Authenticate(userLogin.Username, userLogin.Password);
+            if (user == null) return BadRequest(new {message = "Username and password is incorrect"});
+            // return Ok(new {Id= user.Id} );
+            return Ok(user);
         }
     }
 }
