@@ -24,6 +24,7 @@ namespace HRApp.API.Services
 
         public User Authenticate(string username, string password)
         {
+            Console.WriteLine(_users);
             var user = _users.SingleOrDefault(x =>
             {
                 return x.Login.Username == username && x.Login.Password == password;
@@ -33,7 +34,7 @@ namespace HRApp.API.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
@@ -41,6 +42,7 @@ namespace HRApp.API.Services
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            var tokenDescriptor = securityTokenDescriptor;
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 

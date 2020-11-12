@@ -88,7 +88,6 @@
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.pdb
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/appsettings.Development.json
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/appsettings.json
-/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.deps.json
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.runtimeconfig.json
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/bin/Debug/netcoreapp3.1/api.runtimeconfig.dev.json
@@ -107,3 +106,4 @@
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/staticwebassets/api.StaticWebAssets.Manifest.cache
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/staticwebassets/api.StaticWebAssets.xml
 /Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/api.genruntimeconfig.cache
+/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/Debug/netcoreapp3.1/scopedcss/bundle/api.styles.css
