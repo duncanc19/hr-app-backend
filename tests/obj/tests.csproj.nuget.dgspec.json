@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj": {}
+    "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/tests/tests.csproj": {}
   },
   "projects": {
-    "/Users/duncan/Documents/hr-app-backend/api/api.csproj": {
+    "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/duncan/Documents/hr-app-backend/api/api.csproj",
+        "projectUniqueName": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/api.csproj",
         "projectName": "api",
-        "projectPath": "/Users/duncan/Documents/hr-app-backend/api/api.csproj",
-        "packagesPath": "/Users/duncan/.nuget/packages/",
-        "outputPath": "/Users/duncan/Documents/hr-app-backend/api/obj/",
+        "projectPath": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/api.csproj",
+        "packagesPath": "/Users/joannafawl/.nuget/packages/",
+        "outputPath": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/duncan/.nuget/NuGet/NuGet.Config"
+          "/Users/joannafawl/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -24,6 +24,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -35,10 +36,19 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Microsoft.Extensions.Configuration.CommandLine": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.9, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.8.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             }
           },
           "imports": [
@@ -59,21 +69,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj": {
+    "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/tests/tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj",
+        "projectUniqueName": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/tests/tests.csproj",
         "projectName": "tests",
-        "projectPath": "/Users/duncan/Documents/hr-app-backend/tests/tests.csproj",
-        "packagesPath": "/Users/duncan/.nuget/packages/",
-        "outputPath": "/Users/duncan/Documents/hr-app-backend/tests/obj/",
+        "projectPath": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/tests/tests.csproj",
+        "packagesPath": "/Users/joannafawl/.nuget/packages/",
+        "outputPath": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/duncan/.nuget/NuGet/NuGet.Config"
+          "/Users/joannafawl/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -83,9 +93,10 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "/Users/duncan/Documents/hr-app-backend/api/api.csproj": {
-                "projectPath": "/Users/duncan/Documents/hr-app-backend/api/api.csproj"
+              "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/api.csproj": {
+                "projectPath": "/Users/joannafawl/Documents/Academy/Shared repos/hr-app-backend/api/api.csproj"
               }
             }
           }
@@ -98,6 +109,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -131,7 +143,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
