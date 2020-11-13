@@ -4,7 +4,7 @@ orbs:
   heroku: circleci/heroku@1.2.3
 
 jobs:
-  test-and-build:
+  test:
     executor: win/default     
     steps:
     - checkout
@@ -19,7 +19,7 @@ jobs:
         name: Run Tests
         command: dotnet test ./tests
 
-  deploy-image-to-heroku:
+  build-and-deploy-image-to-heroku:
     executor: heroku/default
     steps:
     - checkout
@@ -39,8 +39,10 @@ jobs:
 workflows:
     test_build_and_deploy:
         jobs:
-        - test-and-build
-
-        - deploy-image-to-heroku:
+        - test
+        - build-and-deploy-image-to-heroku:
             requires:
-                - test-and-build
+                - test
+            filters:
+                branches:
+                    only: main
