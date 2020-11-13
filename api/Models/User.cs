@@ -14,11 +14,12 @@ namespace HRApp.API.Models
        
         public Token Token {get; set;} 
 
-        // public User(Login login, UserInfo info, Guid id)
-        // {
-        //     this.Login = login;
-        //     this.UserInfo = info;
-        //     this.Id = id;
-        // }
+        public User(Login login, UserInfo info, Guid id)
+        {
+            this.Login = login;
+            this.UserInfo = info;
+            this.Id = id;
+            this.Token = new Token();
+        }
     }
 }
