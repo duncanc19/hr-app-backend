@@ -21,8 +21,8 @@ public class UserList
                         Telephone = "07713344333", Email = "joanna@jf.com", Location = "Seattle", NextOfKin = "Brother", Address = "The Tower",
                         Salary = "£75000", DoB = new DateTime(1917,05,08) };
 
-        users.Add(new User(duncan, duncanInfo, new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1")));
-        users.Add(new User(azlina, azlinaInfo, new Guid("18712a4f-744e-4e7c-a191-395fa832518b")));
-        users.Add(new User(joanna, joannaInfo, new Guid("6d56e5bd-bba7-4026-9e3d-383f2c2f8d4d")));
+        // users.Add(new User(duncan, duncanInfo, new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1")));
+        // users.Add(new User(azlina, azlinaInfo, new Guid("18712a4f-744e-4e7c-a191-395fa832518b")));
+        // users.Add(new User(joanna, joannaInfo, new Guid("6d56e5bd-bba7-4026-9e3d-383f2c2f8d4d")));
     }
 }

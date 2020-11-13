@@ -9,16 +9,16 @@ namespace HRApp.API.Models
         
         [Key]
         public Guid Id { get; set; }
-        public Login Login { get; }
-        public UserInfo UserInfo { get; } 
+        public Login Login { get; set; }
+        public UserInfo UserInfo { get; set; } 
        
-        public string Token {get; set;}
+        public Token Token {get; set;} 
 
-        public User(Login login, UserInfo info, Guid id)
-        {
-            this.Login = login;
-            this.UserInfo = info;
-            this.Id = id;
-        }
+        // public User(Login login, UserInfo info, Guid id)
+        // {
+        //     this.Login = login;
+        //     this.UserInfo = info;
+        //     this.Id = id;
+        // }
     }
 }

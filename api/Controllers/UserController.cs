@@ -58,16 +58,16 @@ namespace HRApp.API.Controllers
     
 
       // POST api/user/
-        [HttpPost]
-        public ActionResult<User> AddUser([FromBody] UserInfo info)
-        {
-            Guid id = Guid.NewGuid();
-            string username = info.GenerateUsername();
-            Login login = new Login { Username = username, Password = "ABC" };
-            User user = new User (login, info, id);
-            Users.Add(user);
+        // [HttpPost]
+        // public ActionResult<User> AddUser([FromBody] UserInfo info)
+        // {
+        //     Guid id = Guid.NewGuid();
+        //     string username = info.GenerateUsername();
+        //     Login login = new Login { Username = username, Password = "ABC" };
+        //     // User user = new User (login, info, id);
+        //     Users.Add(user);
 
-            return Ok(Users); 
-        }
+        //     return Ok(Users); 
+        // }
     }
 }
