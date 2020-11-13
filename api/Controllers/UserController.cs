@@ -24,7 +24,7 @@ namespace HRApp.API.Controllers
 
         // GET api/user
         [HttpGet("{id}")]
-        public ActionResult<UserInfo> Get(Guid id)
+        public ActionResult<UserInfo> GetUserInfo(Guid id)
         {
             var userfound = Users.SingleOrDefault( x => x.Id == id );
             if (userfound != null)
@@ -37,7 +37,7 @@ namespace HRApp.API.Controllers
 
         // PUT api/user/:id
         [HttpPut("{id}")]
-        public ActionResult<UserInfo> Put(Guid id, [FromBody] UserInfo info)
+        public ActionResult<UserInfo> EditUserInfo(Guid id, [FromBody] UserInfo info)
         {
             var userfound = Users.SingleOrDefault( x => x.Id == id );
             if (userfound != null)
@@ -59,7 +59,7 @@ namespace HRApp.API.Controllers
 
       // POST api/user/
         [HttpPost]
-        public ActionResult<User> Post([FromBody] UserInfo info)
+        public ActionResult<User> AddUser([FromBody] UserInfo info)
         {
             Guid id = Guid.NewGuid();
             string username = info.GenerateUsername();
