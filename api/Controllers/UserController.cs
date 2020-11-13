@@ -57,7 +57,7 @@ namespace HRApp.API.Controllers
         }
     
 
-      // POST api/user/
+        // POST api/user/
         [HttpPost]
         public ActionResult<User> AddUser([FromBody] UserInfo info)
         {
