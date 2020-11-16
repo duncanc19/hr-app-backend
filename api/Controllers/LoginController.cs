@@ -18,11 +18,11 @@ namespace HRApp.API.Controllers
         ITokenService _tokenService { get; set; }
 
         public LoginController(ITokenService tokenService)
-       {
+        {
            var userList = new UserList();
            Users = userList.users;
            _tokenService = tokenService;
-       }
+        }
 
         // POST api/login
         [HttpPost]
