@@ -1,15 +1,23 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using HRApp.API.Helpers;
-using System.Text;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using HRApp.API.Helpers;
 using HRApp.API.IServices;
 using HRApp.API.Services;
+using HRApp.API.Models;
 
 namespace api
 {
@@ -38,7 +46,7 @@ namespace api
             });
 
             services.AddControllers();
-             var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -62,7 +70,9 @@ namespace api
             });
             
             services.AddScoped<ITokenService, TokenService>();
-    
+
+            services.AddDbContext<UserContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
         
 
@@ -73,8 +83,14 @@ namespace api
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
+
+            // app.UseMvc();
 
             app.UseRouting();
 
@@ -89,5 +105,7 @@ namespace api
                 endpoints.MapControllers();
             });
         }
+        
+
     }
 }
