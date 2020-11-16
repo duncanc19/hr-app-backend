@@ -67,7 +67,7 @@ namespace HRApp.API.Controllers
             User user = new User (login, info, id);
             Users.Add(user);
 
-            return Ok(Users); 
+            return Ok(user); 
         }
     }
 }
