@@ -132,9 +132,9 @@ namespace tests
             var httpContent = new StringContent(stringChange, Encoding.UTF8, "application/json");
             var userId = "18712a4f-744e-4e7c-a191-395fa832518b";
 
-            var expectedResponse = JToken.FromObject(new { FirstName = "Harry", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
+            var expectedResponse = JToken.FromObject(new {user = new { FirstName = "Harry", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771635463dd3", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Disneyland",
-                        Salary = "£29000", DoB = new DateTime(1979,01,01) });
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) }});
 
             var apiResponse = await apiClient.PutAsync($"http://localhost:5003/api/user/{userId}", httpContent);
             // Assert
