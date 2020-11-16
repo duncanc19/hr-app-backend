@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
+using System.Collections;
 
 namespace HRApp.API.Controllers
 {
@@ -68,6 +69,19 @@ namespace HRApp.API.Controllers
             Users.Add(user);
 
             return Ok(Users); 
+        }
+
+
+        // GET api/user
+        [HttpGet("all")]
+        public ActionResult<List<UserInfo>> GetAllUsers()
+        {
+            ArrayList allUsers = new ArrayList();
+            foreach (User user in Users)
+            {
+                allUsers.Add(user.UserInfo);
+            }
+            return Ok(new{users= allUsers});
         }
     }
 }

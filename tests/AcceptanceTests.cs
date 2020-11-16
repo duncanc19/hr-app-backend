@@ -8,6 +8,7 @@ using HRApp.API.Models;
 using Newtonsoft.Json;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace tests
 {
@@ -174,15 +175,17 @@ namespace tests
             // Arrange
             var apiClient = new HttpClient();
 
-            var expectedResponse = JToken.FromObject(new {users = new ArrayList() { new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
-                        Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
-                        Salary = "£29000", DoB = new DateTime(1979,01,01) }, 
+            var expectedResponse = JToken.FromObject(new {users = new ArrayList() { 
                         new { FirstName = "Duncan", Surname = "Carter", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333333333", Email = "duncan@dc.com", Location = "Paris", NextOfKin = "Mother", Address = "Champs Elysee",
                         Salary = "£56000", DoB = new DateTime(1912,01,01) }, 
+                        new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
+                        Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) }, 
                         new { FirstName = "Joanna", Surname = "Fawl", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "07713344333", Email = "joanna@jf.com", Location = "Seattle", NextOfKin = "Brother", Address = "The Tower",
-                        Salary = "£75000", DoB = new DateTime(1917,05,08) } } });
+                        Salary = "£75000", DoB = new DateTime(1917,05,08) } 
+                        } });
 
             var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user/all");
             // Assert
@@ -212,7 +215,7 @@ namespace tests
             // Assert.True(apiResponse.IsSuccessStatusCode);
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
-            Console.WriteLine(jsonResponse.GetType());
+            
 
             // var userObject = JsonConvert.DeserializeObject(jsonResponse.ToString(), User); 
             // Console.WriteLine(userObject);
