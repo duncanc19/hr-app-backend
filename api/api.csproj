@@ -3,10 +3,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.9"/>
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0"/>
-     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0" />
+     <PackageReference Include="NpgSql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
   </ItemGroup>
 </Project>

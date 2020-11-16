@@ -17,10 +17,10 @@ namespace HRApp.API.Controllers
         List<User> Users { get; set; }
 
        public UserController()
-       {
+        {
            var userList = new UserList();
            Users = userList.users;
-       }
+        }
 
         // GET api/user
         [HttpGet("{id}")]
