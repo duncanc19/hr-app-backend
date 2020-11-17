@@ -12,38 +12,38 @@ namespace HRApp.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowOrigin")]
-    public class LoginDbController : ControllerBase
+    public class OldLoginController : ControllerBase
     {
+        List<User> Users { get; set; }
         ITokenService _tokenService { get; set; }
-        private readonly UserContext _userContext;
 
-        public LoginDbController(ITokenService tokenService, UserContext userContext)
+        public OldLoginController(ITokenService tokenService)
         {
-            _userContext = userContext;
+            var userList = new UserList();
+            Users = userList.users;
             _tokenService = tokenService;
         }
 
-        // POST api/logindb
+        // POST api/login
         [HttpPost]
         public ActionResult<string> Post([FromBody] Login user)
         {
-            // var userfound = _userContext.User.Find( x => x.Email == user.Email && x.Password == user.Password );
-            var userfound = _userContext.User.SingleOrDefault( x => x.Email == user.Email && x.Password == user.Password);
+            var userfound = Users.SingleOrDefault( x => x.Login.Email == user.Email && x.Login.Password == user.Password);
             if (userfound != null)
             {
-                return Ok(new {Id = userfound.UserId} ); 
+                return Ok(new {Id= userfound.Id} ); 
             }
-            return BadRequest(new {message = "Email or password is incorrect"});
+            return BadRequest(new {message = "Username and password is incorrect"});
         }
 
-        // POST api/logindb/authenticate
+        // POST api/login/authenticate
         [HttpPost("authenticate")]
         public ActionResult Authenticate([FromBody] Login user)
         {
             var token = _tokenService.Authenticate(user.Email, user.Password);
-            if (token == null) return BadRequest(new {message = "Email or password incorrect"});
+            if (token == null) return BadRequest(new {message = "Username and password incorrect"});
+            return Ok(new {token = token.Info});
             
-            return Ok(new {token = token.Info}); 
         }
 
     }

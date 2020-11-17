@@ -34,7 +34,8 @@ namespace HRApp.API.Controllers
         [HttpGet]
         public ActionResult<List<UserDb>> GetAll()
         {
-            return _userContext.User.ToList();
+            var allUsers = _userContext.User.ToList();
+            return Ok(new{users = allUsers});
         }
 
          // GET api/userdb/:id
@@ -46,7 +47,7 @@ namespace HRApp.API.Controllers
             if (user == null) {
                 return BadRequest(new {message = "ID does not exist"});
             }
-            return Ok(user); 
+            return Ok(new{user = user}); 
         }
 
         // PUT api/userdb/:id
@@ -76,7 +77,7 @@ namespace HRApp.API.Controllers
         [HttpPost]
         public ActionResult<UserDb> AddUser([FromBody] UserDb info)
         {
-            UserDb user = new UserDb { 
+            UserDb newUser = new UserDb { 
                 FirstName = info.FirstName,
                 Surname = info.Surname, 
                 Email = info.Email,
@@ -87,10 +88,10 @@ namespace HRApp.API.Controllers
                 Salary = info.Salary,
                 Password = info.Password
             };
-            _userContext.User.Add(user);
+            _userContext.User.Add(newUser);
             _userContext.SaveChanges();
 
-            return Ok(user);
+            return Ok(new{user = newUser});
         }
 
         // DELETE api/userdb/:id
