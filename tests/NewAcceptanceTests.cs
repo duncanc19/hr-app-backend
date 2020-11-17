@@ -8,6 +8,7 @@ using HRApp.API.Models;
 using Newtonsoft.Json;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using FluentAssertions;
 
 namespace tests
 {
@@ -34,24 +35,66 @@ namespace tests
             var apiClient = new HttpClient();
             var user = new Login
             {
-                Username = "Duncan",
-                Password = "abc" 
+                Email = "DuncanC@skillsforcare.org",
+                Password = "password" 
             };
-             var expectedResponse = JToken.FromObject(new { Id = new Guid("c0a68046-617e-4927-bd9b-c14ce8f497e1") });
-           
+            var expectedResponse = JToken.FromObject(new { id = new Guid("e51709b9-2666-4aeb-abb7-bbdb2ef6164b") });
+
             // Act
             // Serialize our concrete class into a JSON String
             var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
             // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
             var httpContent = new StringContent(stringUser, Encoding.UTF8, "application/json");
-
+            
             var apiResponse = await apiClient.PostAsync($"http://localhost:5003/api/login", httpContent);
-
+   
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+            Console.WriteLine("******************* TEST");
+            Console.WriteLine(jsonResponse);
+            Console.WriteLine(expectedResponse);
+            
+            //var api = await apiClient.PostAsync($"http://localhost:5003/api/login", httpContent);
 
             // Assert
             // returns userid, name, role and permissions
+            // JToken.DeepEquals(expectedResponse, jsonResponse);
             Assert.Equal(expectedResponse, jsonResponse);
+        }
+
+        [Fact]
+        public async Task LogsInWithCorrectEmailAndPassword()
+        {
+            var apiClient = new HttpClient();
+            var user = new Login
+            {
+                Email = "DuncanC@skillsforcare.org",
+                Password = "password" 
+            };
+            var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
+            var httpContent = new StringContent(stringUser, Encoding.UTF8, "application/json");
+            var apiResponse = await apiClient.PostAsync($"http://localhost:5003/api/login/authenticate", httpContent);
+            var token = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+            // Console.WriteLine("******************* token ");
+            // Console.WriteLine(token.token);
+            Assert.True(apiResponse.IsSuccessStatusCode);
+            // apiResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+         [Fact]
+        public async Task LoginFailsWithIncorrectEmailAndPassword()
+        {
+            var apiClient = new HttpClient();
+            var user = new Login
+            {
+                Email = "DuncanC@skillsforcare.org",
+                Password = "passwrd" 
+            };
+            var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
+            var httpContent = new StringContent(stringUser, Encoding.UTF8, "application/json");
+            var apiResponse = await apiClient.PostAsync($"http://localhost:5003/api/login/authenticate", httpContent);
+            
+            Assert.False(apiResponse.IsSuccessStatusCode);
+            // apiResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Fact]
@@ -60,8 +103,8 @@ namespace tests
             var apiClient = new HttpClient();
             var user = new Login
             {
-                Username = "Joanna",
-                Password = "1234" 
+                Email = "DuncanC@skillsforcare.org",
+                Password = "wrongpass" 
             };
             // Serialize our concrete class into a JSON String
             var stringUser = await Task.Run(() => JsonConvert.SerializeObject(user));
@@ -72,9 +115,13 @@ namespace tests
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
 
+            // Console.WriteLine("#####################");
+            // Console.WriteLine(expectedResponse);
+            // Console.WriteLine(jsonResponse);
             // returns userid, name, role and permissions
             //{ userid: 98909808, name: "Duncan", role: "admin", permissions: 1}
-            Assert.Equal(JToken.FromObject(new {message = "Username and password is incorrect"}), jsonResponse);
+            
+            Assert.Equal(JToken.FromObject(new {message = "Email or password is incorrect"}), jsonResponse);
         }
 
         [Fact]
