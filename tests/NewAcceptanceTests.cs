@@ -29,7 +29,7 @@ namespace tests
             Assert.Equal("This is the home page! Testing, testing...", stringResponse);
         }
 
-        // [Fact]
+        [Fact]
         public async Task PostLoginEndpointWithValidUsernameAndPassword()
         {
             // Arrange
@@ -95,7 +95,7 @@ namespace tests
             // apiResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-        [Fact]
+        // [Fact]
         public async Task PostLoginEndpointWithInvalidUsernameAndPassword()
         {
             var apiClient = new HttpClient();
