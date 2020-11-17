@@ -6,9 +6,9 @@ public class UserList
     public List<User> users { get; set; } = new List<User>();
     public UserList() 
     {
-        var duncan = new Login { Username = "Duncan", Password="abc" };
-        var azlina = new Login { Username = "Azlina", Password="def" };
-        var joanna = new Login { Username = "Joanna", Password="123" };
+        var duncan = new Login { Email = "Duncan", Password="abc" };
+        var azlina = new Login { Email = "Azlina", Password="def" };
+        var joanna = new Login { Email = "Joanna", Password="123" };
 
         var duncanInfo = new UserInfo { FirstName = "Duncan", Surname = "Carter", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333333333", Email = "duncan@dc.com", Location = "Paris", NextOfKin = "Mother", Address = "Champs Elysee",

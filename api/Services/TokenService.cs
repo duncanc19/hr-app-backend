@@ -44,21 +44,20 @@ namespace HRApp.API.Services
         // };
    
         private readonly AppSettings _appSettings;
-        private List<User> _users { get; set; }
+        // private List<User> _users { get; set; }
+        private readonly UserContext _userContext;
 
-        public TokenService(IOptions<AppSettings> appSettings)
+        public TokenService(IOptions<AppSettings> appSettings, UserContext userContext)
         {
             _appSettings = appSettings.Value;
-            var userList = new UserList();
-            _users = userList.users;
+            _userContext = userContext;
+            // var userList = new UserList();
+            // _users = userList.users;
         }
 
-        public Token Authenticate(string username, string password)
+        public Token Authenticate(string email, string password)
         {
-            var user = _users.SingleOrDefault(x =>
-            {
-                return x.Login.Username == username && x.Login.Password == password;
-            });
+            var user = _userContext.User.SingleOrDefault(x => x.Email == email && x.Password == password );
             if (user == null) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -66,21 +65,23 @@ namespace HRApp.API.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.UserId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            var newToken = new Token();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token.Info = tokenHandler.WriteToken(token);
-
-            return user.Token;
+            
+            newToken.Info = tokenHandler.WriteToken(token);
+            return newToken;
         }
 
-        public IEnumerable<User> GetAll()
-        {
-            return _users;
-        }
+        // public IEnumerable<User> GetAll()
+        // {
+        //     return _users;
+        // }
 
     }
 }

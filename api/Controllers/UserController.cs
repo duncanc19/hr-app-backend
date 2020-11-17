@@ -63,7 +63,7 @@ namespace HRApp.API.Controllers
         {
             Guid id = Guid.NewGuid();
             string username = info.GenerateUsername();
-            Login login = new Login { Username = username, Password = "ABC" };
+            Login login = new Login { Email = username, Password = "ABC" };
             User user = new User (login, info, id);
             Users.Add(user);
 
