@@ -27,10 +27,10 @@ namespace HRApp.API.Controllers
         [HttpGet("{id}")]
         public ActionResult<UserInfo> GetUserInfo(Guid id)
         {
-            var userfound = Users.SingleOrDefault( x => x.Id == id );
-            if (userfound != null)
+            var userFound = Users.SingleOrDefault( x => x.Id == id );
+            if (userFound != null)
             {
-                return Ok(userfound.UserInfo); 
+                return Ok(new { user = userFound.UserInfo }); 
             }
             return BadRequest(new {message = "ID does not exist"});
             
