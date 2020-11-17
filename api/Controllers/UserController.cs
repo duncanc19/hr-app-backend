@@ -18,8 +18,8 @@ namespace HRApp.API.Controllers
 
        public UserController()
         {
-           var userList = new UserList();
-           Users = userList.users;
+            var userList = new UserList();
+            Users = userList.users;
         }
 
         // GET api/user

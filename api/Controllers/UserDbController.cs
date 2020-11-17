@@ -74,7 +74,6 @@ namespace HRApp.API.Controllers
 
         // POST api/userdb
         [HttpPost]
-        // public ActionResult<UserDb> AddUser([FromBody] UserDb info)
         public ActionResult<UserDb> AddUser([FromBody] UserDb info)
         {
             UserDb user = new UserDb { 
@@ -92,6 +91,23 @@ namespace HRApp.API.Controllers
             _userContext.SaveChanges();
 
             return Ok(user);
+        }
+
+        // DELETE api/userdb/:id
+        [HttpDelete("{userId}")]
+        // public ActionResult<UserDb> AddUser([FromBody] UserDb info)
+        public ActionResult<string> RemoveUser(Guid userId)
+        {
+            var user = _userContext.User.Find(userId);
+            if (user == null)
+            {
+                return BadRequest(new {message = "ID does not exist"});
+            }
+
+            _userContext.User.Remove(user);
+            _userContext.SaveChanges();
+
+            return Ok("User deleted");
         }
     }
 }
