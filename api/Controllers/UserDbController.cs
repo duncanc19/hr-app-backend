@@ -69,10 +69,8 @@ namespace HRApp.API.Controllers
                 }
             }
             _userContext.SaveChanges();
-            // return Ok(user.UserInfo); 
             return Ok(user);
         }
-    
 
         // POST api/userdb
         [HttpPost]
