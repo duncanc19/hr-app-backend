@@ -29,7 +29,7 @@ namespace tests
             Assert.Equal("This is the home page! Testing, testing...", stringResponse);
         }
 
-        [Fact]
+        // [Fact]
         public async Task PostLoginEndpointWithValidUsernameAndPassword()
         {
             // Arrange
