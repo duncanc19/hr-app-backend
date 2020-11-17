@@ -5,8 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRApp.API.Models
 {
-    public class UserInfo 
+    public class UserDb 
     {
+        [Key]
+        public int Id { get; set; }
+        public Guid Uuid { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Role { get; set; }
@@ -17,11 +20,8 @@ namespace HRApp.API.Models
         public string NextOfKin { get; set; }
         public string Address { get; set; }
         public string Salary { get; set; }
+        public string Password { get; set; }
+        public string ManagerEmail { get; set; }
         public DateTime DoB { get; set; }
-
-        public string GenerateUsername()
-        {
-            return this.FirstName + this.Surname[0];
-        }
     }
 }

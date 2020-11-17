@@ -8,6 +8,6 @@ namespace HRApp.API.Models
 
     }
 
-    public DbSet<User> User { get; set; }
+    public DbSet<UserDb> User { get; set; }
   }
 }

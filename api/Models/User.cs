@@ -11,7 +11,6 @@ namespace HRApp.API.Models
         public Guid Id { get; set; }
         public Login Login { get; set; }
         public UserInfo UserInfo { get; set; } 
-       
         public Token Token {get; set;} 
 
         public User(Login login, UserInfo info, Guid id)
