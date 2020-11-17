@@ -40,19 +40,19 @@ namespace HRApp.API.Controllers
         [HttpPut("{id}")]
         public ActionResult<UserInfo> EditUserInfo(Guid id, [FromBody] UserInfo info)
         {
-            var userfound = Users.SingleOrDefault( x => x.Id == id );
-            if (userfound != null)
+            var userFound = Users.SingleOrDefault( x => x.Id == id );
+            if (userFound != null)
             {
                 foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
                 {
                     PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
                     if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == new DateTime().ToString()))
                     {
-                        property.SetValue(userfound.UserInfo, property.GetValue(info));
+                        property.SetValue(userFound.UserInfo, property.GetValue(info));
                     }
                   
                 }
-                return Ok(userfound.UserInfo); 
+                return Ok(new {user = userFound.UserInfo}); 
             }
             return BadRequest(new {message = "ID does not exist"});
         }
@@ -65,10 +65,10 @@ namespace HRApp.API.Controllers
             Guid id = Guid.NewGuid();
             string username = info.GenerateUsername();
             Login login = new Login { Username = username, Password = "ABC" };
-            User user = new User (login, info, id);
-            Users.Add(user);
+            User newUser = new User (login, info, id);
+            Users.Add(newUser);
 
-            return Ok(user); 
+            return Ok(new {user = newUser}); 
         }
 
 
@@ -81,7 +81,7 @@ namespace HRApp.API.Controllers
             {
                 allUsers.Add(user.UserInfo);
             }
-            return Ok(new{users= allUsers});
+            return Ok(new {users = allUsers});
         }
     }
 }
