@@ -232,5 +232,23 @@ namespace tests
             // Assert.Equal("£56000", jsonResponse.UserInfo.Salary);
             // Assert.Equal(new DateTime(1912,01,01), jsonResponse.UserInfo.DoB);
         }
+
+        [Fact]
+        public async Task DeleteUserEndpointWithValidID()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+            var userId = "c0a68046-617e-4927-bd9b-c14ce8f497e1";
+            var expectedResponse = JToken.FromObject(new { message = "User has been deleted successfully" });
+
+            // Act
+            var apiResponse = await apiClient.DeleteAsync($"http://localhost:5003/api/user/{userId}");
+            // Assert
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+            Assert.True(apiResponse.IsSuccessStatusCode);
+
+            Assert.Equal(expectedResponse, jsonResponse);
+            
+        }
     }
 }

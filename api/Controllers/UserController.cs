@@ -83,5 +83,20 @@ namespace HRApp.API.Controllers
             }
             return Ok(new {users = allUsers});
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<string> DeleteUser(Guid id)
+        {
+            var userFound = Users.SingleOrDefault( x => x.Id == id );
+            if (userFound != null)
+            {
+                Users.Remove(userFound);
+               
+                return Ok(new { message = "User has been deleted successfully" }); 
+            }
+            return BadRequest(new {message = "ID does not exist"});
+            
+        }
+    
     }
 }
