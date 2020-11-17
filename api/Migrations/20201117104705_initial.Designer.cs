@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace api.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20201116160348_initial")]
+    [Migration("20201117104705_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,12 +23,14 @@ namespace api.Migrations
 
             modelBuilder.Entity("HRApp.API.Models.UserDb", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AdminLevel")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DoB")
@@ -52,9 +54,6 @@ namespace api.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("text");
 
-                    b.Property<string>("PermissionLevel")
-                        .HasColumnType("text");
-
                     b.Property<string>("Role")
                         .HasColumnType("text");
 
@@ -67,10 +66,7 @@ namespace api.Migrations
                     b.Property<string>("Telephone")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("Uuid")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("User");
                 });

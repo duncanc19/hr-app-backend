@@ -8,12 +8,11 @@ namespace HRApp.API.Models
     public class UserDb 
     {
         [Key]
-        public int Id { get; set; }
-        public Guid Uuid { get; set; }
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string Role { get; set; }
-        public string PermissionLevel { get; set; }
+        public string AdminLevel { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }

@@ -23,8 +23,8 @@ namespace HRApp.API.Controllers
                 _userContext.User.Add(new UserDb { 
                     Email = "admin@skillsforcare.org",
                     Password = "password",
-                    Uuid = Guid.NewGuid(),
-                    Id = 1
+                    AdminLevel = "admin",
+                    UserId = Guid.NewGuid()
                 });
                 _userContext.SaveChanges();
             };
@@ -38,11 +38,10 @@ namespace HRApp.API.Controllers
         }
 
          // GET api/userdb/:id
-        [HttpGet("{uuid}")]
-        public ActionResult<UserDb> GetUserById(Guid uuid)
+        [HttpGet("{userId}")]
+        public ActionResult<UserDb> GetUserById(Guid userId)
         {
-            // var user = _userContext.User.Find(uuid);
-            var user = _userContext.User.SingleOrDefault( x => x.Uuid == uuid );
+            var user = _userContext.User.Find(userId);
 
             if (user == null) {
                 return BadRequest(new {message = "ID does not exist"});
@@ -50,39 +49,51 @@ namespace HRApp.API.Controllers
             return Ok(user); 
         }
 
-    //     // PUT api/user/:id
-    //     [HttpPut("{id}")]
-    //     public ActionResult<UserInfo> EditUserInfo(Guid id, [FromBody] UserInfo info)
-    //     {
-    //         var userfound = Users.SingleOrDefault( x => x.Id == id );
-    //         if (userfound != null)
-    //         {
-    //             foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
-    //             {
-    //                 PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
-    //                 if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == new DateTime().ToString()))
-    //                 {
-    //                     property.SetValue(userfound.UserInfo, property.GetValue(info));
-    //                 }
-                  
-    //             }
-    //             return Ok(userfound.UserInfo); 
-    //         }
-    //         return BadRequest(new {message = "ID does not exist"});
-    //     }
+        // PUT api/user/:id
+        [HttpPut("{userId}")]
+        public ActionResult<UserDb> EditUserInfo(Guid userId, [FromBody] UserDb info)
+        {
+            var user = _userContext.User.Find(userId);
+
+            if (user == null)
+            {
+                return BadRequest(new {message = "ID does not exist"});
+            }
+
+            // _userContext.User.SetValue(info);
+            foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
+            {
+                if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
+                {
+                    field.SetValue(user, field.GetValue(info));
+                }
+            }
+            _userContext.SaveChanges();
+            // return Ok(user.UserInfo); 
+            return Ok(user);
+        }
     
 
-    //     // POST api/user/
-    //     [HttpPost]
-    //     public ActionResult<User> AddUser([FromBody] UserInfo info)
-    //     {
-    //         Guid id = Guid.NewGuid();
-    //         string username = info.GenerateUsername();
-    //         Login login = new Login { Username = username, Password = "ABC" };
-    //         User user = new User (login, info, id);
-    //         Users.Add(user);
+        // POST api/userdb
+        [HttpPost]
+        // public ActionResult<UserDb> AddUser([FromBody] UserDb info)
+        public ActionResult<UserDb> AddUser([FromBody] UserDb info)
+        {
+            UserDb user = new UserDb { 
+                FirstName = info.FirstName,
+                Surname = info.Surname, 
+                Email = info.Email,
+                Role = info.Role,
+                Location = info.Location,
+                ManagerEmail = info.ManagerEmail,
+                AdminLevel = info.AdminLevel,
+                Salary = info.Salary,
+                Password = info.Password
+            };
+            _userContext.User.Add(user);
+            _userContext.SaveChanges();
 
-    //         return Ok(Users); 
-    //     }
+            return Ok(user);
+        }
     }
 }

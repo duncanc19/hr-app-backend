@@ -19,9 +19,9 @@ namespace HRApp.API.Controllers
 
         public LoginController(ITokenService tokenService)
         {
-           var userList = new UserList();
-           Users = userList.users;
-           _tokenService = tokenService;
+            var userList = new UserList();
+            Users = userList.users;
+            _tokenService = tokenService;
         }
 
         // POST api/login
@@ -34,7 +34,6 @@ namespace HRApp.API.Controllers
                 return Ok(new {Id= userfound.Id} ); 
             }
             return BadRequest(new {message = "Username and password is incorrect"});
-             
         }
 
         // POST api/login/authenticate
