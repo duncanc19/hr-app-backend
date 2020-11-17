@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
+using System.Collections;
 
 namespace HRApp.API.Controllers
 {
@@ -26,10 +27,10 @@ namespace HRApp.API.Controllers
         [HttpGet("{id}")]
         public ActionResult<UserInfo> GetUserInfo(Guid id)
         {
-            var userfound = Users.SingleOrDefault( x => x.Id == id );
-            if (userfound != null)
+            var userFound = Users.SingleOrDefault( x => x.Id == id );
+            if (userFound != null)
             {
-                return Ok(userfound.UserInfo); 
+                return Ok(new { user = userFound.UserInfo }); 
             }
             return BadRequest(new {message = "ID does not exist"});
             
@@ -39,19 +40,19 @@ namespace HRApp.API.Controllers
         [HttpPut("{id}")]
         public ActionResult<UserInfo> EditUserInfo(Guid id, [FromBody] UserInfo info)
         {
-            var userfound = Users.SingleOrDefault( x => x.Id == id );
-            if (userfound != null)
+            var userFound = Users.SingleOrDefault( x => x.Id == id );
+            if (userFound != null)
             {
                 foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
                 {
                     PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
                     if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == new DateTime().ToString()))
                     {
-                        property.SetValue(userfound.UserInfo, property.GetValue(info));
+                        property.SetValue(userFound.UserInfo, property.GetValue(info));
                     }
                   
                 }
-                return Ok(userfound.UserInfo); 
+                return Ok(new {user = userFound.UserInfo}); 
             }
             return BadRequest(new {message = "ID does not exist"});
         }
@@ -64,10 +65,38 @@ namespace HRApp.API.Controllers
             Guid id = Guid.NewGuid();
             string username = info.GenerateUsername();
             Login login = new Login { Email = username, Password = "ABC" };
-            User user = new User (login, info, id);
-            Users.Add(user);
+            User newUser = new User (login, info, id);
+            Users.Add(newUser);
 
-            return Ok(Users); 
+            return Ok(new {user = newUser}); 
         }
+
+
+        // GET api/user
+        [HttpGet("all")]
+        public ActionResult<List<UserInfo>> GetAllUsers()
+        {
+            ArrayList allUsers = new ArrayList();
+            foreach (User user in Users)
+            {
+                allUsers.Add(user.UserInfo);
+            }
+            return Ok(new {users = allUsers});
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<string> DeleteUser(Guid id)
+        {
+            var userFound = Users.SingleOrDefault( x => x.Id == id );
+            if (userFound != null)
+            {
+                Users.Remove(userFound);
+               
+                return Ok(new { message = "User has been deleted successfully" }); 
+            }
+            return BadRequest(new {message = "ID does not exist"});
+            
+        }
+    
     }
 }

@@ -8,7 +8,8 @@ using HRApp.API.Models;
 using Newtonsoft.Json;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using FluentAssertions;
+using System.Collections;
+
 
 namespace tests
 {
@@ -132,9 +133,9 @@ namespace tests
 
             var userId = "18712a4f-744e-4e7c-a191-395fa832518b";
 
-            var expectedResponse = JToken.FromObject(new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
+            var expectedResponse = JToken.FromObject(new {user = new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
-                        Salary = "£29000", DoB = new DateTime(1979,01,01) });
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) }});
 
             var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user/{userId}");
             // Assert
@@ -178,9 +179,9 @@ namespace tests
             var httpContent = new StringContent(stringChange, Encoding.UTF8, "application/json");
             var userId = "18712a4f-744e-4e7c-a191-395fa832518b";
 
-            var expectedResponse = JToken.FromObject(new { FirstName = "Harry", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
+            var expectedResponse = JToken.FromObject(new {user = new { FirstName = "Harry", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
                         Telephone = "0771635463dd3", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Disneyland",
-                        Salary = "£29000", DoB = new DateTime(1979,01,01) });
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) }});
 
             var apiResponse = await apiClient.PutAsync($"http://localhost:5003/api/user/{userId}", httpContent);
             // Assert
@@ -216,6 +217,33 @@ namespace tests
         }
 
         [Fact]
+        public async Task GetAllUsersFromUserEndpoint()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+
+            var expectedResponse = JToken.FromObject(new {users = new ArrayList() { 
+                        new { FirstName = "Duncan", Surname = "Carter", Role = "Employee", PermissionLevel = "Default",
+                        Telephone = "0771333333333", Email = "duncan@dc.com", Location = "Paris", NextOfKin = "Mother", Address = "Champs Elysee",
+                        Salary = "£56000", DoB = new DateTime(1912,01,01) }, 
+                        new { FirstName = "Azlina", Surname = "Yeo", Role = "Employee", PermissionLevel = "Default",
+                        Telephone = "0771333546433", Email = "azlina@happy.com", Location = "Singapore", NextOfKin = "Father", Address = "Bedok Reservoir Road",
+                        Salary = "£29000", DoB = new DateTime(1979,01,01) }, 
+                        new { FirstName = "Joanna", Surname = "Fawl", Role = "Employee", PermissionLevel = "Default",
+                        Telephone = "07713344333", Email = "joanna@jf.com", Location = "Seattle", NextOfKin = "Brother", Address = "The Tower",
+                        Salary = "£75000", DoB = new DateTime(1917,05,08) } 
+                        } });
+
+            var apiResponse = await apiClient.GetAsync($"http://localhost:5003/api/user/all");
+            // Assert
+            Assert.True(apiResponse.IsSuccessStatusCode);
+
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+
+            Assert.Equal(expectedResponse, jsonResponse);
+        }
+
+        [Fact]
         public async Task PostUserEndpointWithValidID()
         {
             // Arrange
@@ -234,7 +262,7 @@ namespace tests
             // Assert.True(apiResponse.IsSuccessStatusCode);
 
             var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
-            Console.WriteLine(jsonResponse.GetType());
+            
 
             // var userObject = JsonConvert.DeserializeObject(jsonResponse.ToString(), User); 
             // Console.WriteLine(userObject);
@@ -252,5 +280,22 @@ namespace tests
             // Assert.Equal(new DateTime(1912,01,01), jsonResponse.UserInfo.DoB);
         }
 
+        [Fact]
+        public async Task DeleteUserEndpointWithValidID()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+            var userId = "c0a68046-617e-4927-bd9b-c14ce8f497e1";
+            var expectedResponse = JToken.FromObject(new { message = "User has been deleted successfully" });
+
+            // Act
+            var apiResponse = await apiClient.DeleteAsync($"http://localhost:5003/api/user/{userId}");
+            // Assert
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+            Assert.True(apiResponse.IsSuccessStatusCode);
+
+            Assert.Equal(expectedResponse, jsonResponse);
+            
+        }
     }
 }
