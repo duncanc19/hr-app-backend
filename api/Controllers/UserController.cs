@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
-using System.Collections;
 
 namespace HRApp.API.Controllers
 {
@@ -15,88 +14,98 @@ namespace HRApp.API.Controllers
     [EnableCors("AllowOrigin")]
     public class UserController : ControllerBase
     {
-        List<User> Users { get; set; }
-
-       public UserController()
+        private readonly UserContext _userContext;
+        public UserController(UserContext userContext)
         {
-            var userList = new UserList();
-            Users = userList.users;
+            _userContext = userContext;
+            if (_userContext.User.Count() == 0)
+            {
+                _userContext.User.Add(new UserDb { 
+                    Email = "admin@skillsforcare.org",
+                    Password = "password",
+                    AdminLevel = "admin",
+                    UserId = Guid.NewGuid()
+                });
+                _userContext.SaveChanges();
+            };
         }
 
         // GET api/user
-        [HttpGet("{id}")]
-        public ActionResult<UserInfo> GetUserInfo(Guid id)
+        [HttpGet]
+        public ActionResult<List<UserDb>> GetAll()
         {
-            var userFound = Users.SingleOrDefault( x => x.Id == id );
-            if (userFound != null)
-            {
-                return Ok(new { user = userFound.UserInfo }); 
+            var allUsers = _userContext.User.ToList();
+            return Ok(new{users = allUsers});
+        }
+
+         // GET api/user/:id
+        [HttpGet("{userId}")]
+        public ActionResult<UserDb> GetUserById(Guid userId)
+        {
+            var user = _userContext.User.Find(userId);
+
+            if (user == null) {
+                return BadRequest(new {message = "ID does not exist"});
             }
-            return BadRequest(new {message = "ID does not exist"});
-            
+            return Ok(new{user = user}); 
         }
 
         // PUT api/user/:id
-        [HttpPut("{id}")]
-        public ActionResult<UserInfo> EditUserInfo(Guid id, [FromBody] UserInfo info)
+        [HttpPut("{userId}")]
+        public ActionResult<UserDb> EditUserInfo(Guid userId, [FromBody] UserDb info)
         {
-            var userFound = Users.SingleOrDefault( x => x.Id == id );
-            if (userFound != null)
+            var user = _userContext.User.Find(userId);
+
+            if (user == null)
             {
-                foreach (var item in typeof (UserInfo).GetProperties().Where(p => (p.GetValue(info) != null)))
+                return BadRequest(new {message = "ID does not exist"});
+            }
+
+            // _userContext.User.SetValue(info);
+            foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
+            {
+                if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
                 {
-                    PropertyInfo property = typeof (UserInfo).GetProperty(item.Name);
-                    if (!(property.PropertyType == typeof (DateTime) && property.GetValue(info).ToString() == new DateTime().ToString()))
-                    {
-                        property.SetValue(userFound.UserInfo, property.GetValue(info));
-                    }
-                  
+                    field.SetValue(user, field.GetValue(info));
                 }
-                return Ok(new {user = userFound.UserInfo}); 
             }
-            return BadRequest(new {message = "ID does not exist"});
+            _userContext.SaveChanges();
+            return Ok(user);
         }
-    
 
-        // POST api/user/
+        // POST api/user
         [HttpPost]
-        public ActionResult<User> AddUser([FromBody] UserInfo info)
+        public ActionResult<UserDb> AddUser([FromBody] UserDb info)
         {
-            Guid id = Guid.NewGuid();
-            string username = info.GenerateUsername();
-            Login login = new Login { Email = username, Password = "ABC" };
-            User newUser = new User (login, info, id);
-            Users.Add(newUser);
+            UserDb newUser = new UserDb { 
+                FirstName = info.FirstName,
+                Surname = info.Surname, 
+                Email = info.Email,
+                Role = info.Role,
+                Location = info.Location,
+                ManagerEmail = info.ManagerEmail,
+                AdminLevel = info.AdminLevel,
+                Salary = info.Salary,
+                Password = info.Password
+            };
+            _userContext.User.Add(newUser);
+            _userContext.SaveChanges();
 
-            return Ok(new {user = newUser}); 
+            return Ok(new{user = newUser});
         }
 
-
-        // GET api/user
-        [HttpGet("all")]
-        public ActionResult<List<UserInfo>> GetAllUsers()
+        // DELETE api/user/:id
+        [HttpDelete("{userId}")]
+        public ActionResult<string> RemoveUser(Guid userId)
         {
-            ArrayList allUsers = new ArrayList();
-            foreach (User user in Users)
+            var user = _userContext.User.Find(userId);
+            if (user == null)
             {
-                allUsers.Add(user.UserInfo);
+                return BadRequest(new {message = "ID does not exist"});
             }
-            return Ok(new {users = allUsers});
+            _userContext.User.Remove(user);
+            _userContext.SaveChanges();
+            return Ok("User deleted");
         }
-
-        [HttpDelete("{id}")]
-        public ActionResult<string> DeleteUser(Guid id)
-        {
-            var userFound = Users.SingleOrDefault( x => x.Id == id );
-            if (userFound != null)
-            {
-                Users.Remove(userFound);
-               
-                return Ok(new { message = "User has been deleted successfully" }); 
-            }
-            return BadRequest(new {message = "ID does not exist"});
-            
-        }
-    
     }
 }
