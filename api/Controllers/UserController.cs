@@ -70,7 +70,7 @@ namespace HRApp.API.Controllers
                 }
             }
             _userContext.SaveChanges();
-            return Ok(user);
+            return Ok(new{ user = user});
         }
 
         // POST api/user
