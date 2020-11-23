@@ -48,7 +48,11 @@ namespace api
 
             services.AddControllers();
             
-            var env = System.Environment.GetEnvironmentVariable("JWT_SECRET");
+            Console.WriteLine("GetEnvironmentVariables: ");
+            foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+                Console.WriteLine("  {0} = {1}", de.Key, de.Value);
+                
+            string env = Environment.GetEnvironmentVariable("JWT_SECRET");
             Console.WriteLine("***********************");
             Console.WriteLine(env);
             if (string.IsNullOrEmpty(env))
