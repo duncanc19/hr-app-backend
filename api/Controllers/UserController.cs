@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HRApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowOrigin")]
@@ -32,7 +33,6 @@ namespace HRApp.API.Controllers
         }
 
         // GET api/user
-        [Authorize]
         [HttpGet]
         public ActionResult<List<UserDb>> GetAll([FromHeader] string adminLevel, [FromHeader] string email)
         {
