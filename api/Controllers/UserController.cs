@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HRApp.API.Controllers
 {
@@ -31,11 +32,26 @@ namespace HRApp.API.Controllers
         }
 
         // GET api/user
+        [Authorize]
         [HttpGet]
-        public ActionResult<List<UserDb>> GetAll()
+        public ActionResult<List<UserDb>> GetAll([FromHeader] string adminLevel, [FromHeader] string email)
         {
-            var allUsers = _userContext.User.ToList();
-            return Ok(new{users = allUsers});
+            Console.WriteLine("*******************");
+            Console.WriteLine(adminLevel);
+            Console.WriteLine(email);
+            // if (adminLevel == "Admin") 
+            // {
+                var allUsers = _userContext.User.ToList();
+                return Ok(new{users = allUsers});
+            // } 
+            // if (adminLevel == "Manager") 
+            // {
+            //     var allUsers = _userContext.User.Find(managerEmail)
+            //     return Ok(new{users = allUsers});
+            // } 
+            // return BadRequest(new {message = "You are not authorised to do this"});
+            
+            
         }
 
          // GET api/user/:id
