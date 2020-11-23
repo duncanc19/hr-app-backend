@@ -72,6 +72,7 @@ namespace api
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddDbContext<UserContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<VisitorContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
         
