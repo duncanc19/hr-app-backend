@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace HRApp.API.Models
 {
@@ -19,8 +20,10 @@ namespace HRApp.API.Models
         public string NextOfKin { get; set; }
         public string Address { get; set; }
         public string Salary { get; set; }
-        public string Password { get; set; }
         public string ManagerEmail { get; set; }
         public DateTime DoB { get; set; }
+        
+        [JsonIgnore]
+        public string Password { get; set; }
     }
 }

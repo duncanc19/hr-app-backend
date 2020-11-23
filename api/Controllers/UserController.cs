@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HRApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowOrigin")]
@@ -32,10 +34,19 @@ namespace HRApp.API.Controllers
 
         // GET api/user
         [HttpGet]
-        public ActionResult<List<UserDb>> GetAll()
+        public ActionResult<List<UserDb>> GetAll([FromHeader] string adminLevel, [FromHeader] string email)
         {
-            var allUsers = _userContext.User.ToList();
-            return Ok(new{users = allUsers});
+            if (adminLevel.Equals("Admin")) 
+            {
+                var allUsers = _userContext.User.ToList();
+                return Ok(new{users = allUsers});
+            } 
+            else if (adminLevel == "Manager") 
+            {
+                var managees = _userContext.User.Where(user => (user.ManagerEmail == email)).ToList();
+                return Ok(new{users = managees});
+            } 
+            return BadRequest(new {message = "You are not authorised to do this"});
         }
 
          // GET api/user/:id
@@ -75,37 +86,45 @@ namespace HRApp.API.Controllers
 
         // POST api/user
         [HttpPost]
-        public ActionResult<UserDb> AddUser([FromBody] UserDb info)
+        public ActionResult<UserDb> AddUser([FromBody] UserDb info, [FromHeader] string adminLevel)
         {
-            UserDb newUser = new UserDb { 
-                FirstName = info.FirstName,
-                Surname = info.Surname, 
-                Email = info.Email,
-                Role = info.Role,
-                Location = info.Location,
-                ManagerEmail = info.ManagerEmail,
-                AdminLevel = info.AdminLevel,
-                Salary = info.Salary,
-                Password = info.Password
-            };
-            _userContext.User.Add(newUser);
-            _userContext.SaveChanges();
+            if (adminLevel == "Admin")
+            {
+                UserDb newUser = new UserDb { 
+                    FirstName = info.FirstName,
+                    Surname = info.Surname, 
+                    Email = info.Email,
+                    Role = info.Role,
+                    Location = info.Location,
+                    ManagerEmail = info.ManagerEmail,
+                    AdminLevel = info.AdminLevel,
+                    Salary = info.Salary,
+                    Password = info.Password
+                };
 
-            return Ok(new{user = newUser});
+                _userContext.User.Add(newUser);
+                _userContext.SaveChanges();
+                return Ok(new{user = newUser});
+            };
+            return BadRequest(new {message = "You are not authorised to do this"});
         }
 
         // DELETE api/user/:id
         [HttpDelete("{userId}")]
-        public ActionResult<string> RemoveUser(Guid userId)
+        public ActionResult<string> RemoveUser(Guid userId, [FromHeader] string adminLevel)
         {
-            var user = _userContext.User.Find(userId);
-            if (user == null)
+            if (adminLevel == "Admin")
             {
-                return BadRequest(new {message = "ID does not exist"});
+                var user = _userContext.User.Find(userId);
+                if (user == null)
+                {
+                    return BadRequest(new {message = "ID does not exist"});
+                }
+                _userContext.User.Remove(user);
+                _userContext.SaveChanges();
+                return Ok("User deleted");
             }
-            _userContext.User.Remove(user);
-            _userContext.SaveChanges();
-            return Ok("User deleted");
+            return BadRequest(new {message = "You are not authorised to do this"});
         }
     }
 }
