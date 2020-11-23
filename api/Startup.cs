@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -46,10 +47,17 @@ namespace api
             });
 
             services.AddControllers();
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            
+            var env = System.Environment.GetEnvironmentVariable("JWT_SECRET");
+            if (string.IsNullOrEmpty(env))
+            {
+                var appSettingsSection = Configuration.GetSection("AppSettings");
+                services.Configure<AppSettings>(appSettingsSection);
+                var appSettings = appSettingsSection.Get<AppSettings>();
+                env = appSettings.Secret;
+            } 
+            var key = Encoding.ASCII.GetBytes(env);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,7 +78,6 @@ namespace api
             });
             
             services.AddScoped<ITokenService, TokenService>();
-
             services.AddDbContext<UserContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<VisitorContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
