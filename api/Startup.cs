@@ -47,14 +47,8 @@ namespace api
             });
 
             services.AddControllers();
-            
-            // Console.WriteLine("GetEnvironmentVariables: ");
-            // foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-            //     Console.WriteLine("  {0} = {1}", de.Key, de.Value);
 
             string env = Environment.GetEnvironmentVariable("JWT_SECRET");
-            // Console.WriteLine("***********************");
-            // Console.WriteLine(env);
             if (string.IsNullOrEmpty(env))
             {
                 var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -62,10 +56,7 @@ namespace api
                 var appSettings = appSettingsSection.Get<AppSettings>();
                 env = appSettings.Secret;
             } 
-            // Console.WriteLine(env);
             var key = Encoding.ASCII.GetBytes(env);
-            // Console.WriteLine("***********************");
-            // Console.WriteLine(key);
 
             services.AddAuthentication(options =>
             {
@@ -86,9 +77,35 @@ namespace api
                 };
             });
             
+            string connStr;
+            string databaseString = Environment.GetEnvironmentVariable("DATABASE_URL");
+            if (string.IsNullOrEmpty(databaseString))
+            {
+                // Use connection string from file.
+                connStr = Configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                // Use connection string provided at runtime by Heroku.
+                var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                // Parse connection URL to connection string for Npgsql
+                connUrl = connUrl.Replace("postgres://", string.Empty);
+                var pgUserPass = connUrl.Split("@")[0];
+                var pgHostPortDb = connUrl.Split("@")[1];
+                var pgHostPort = pgHostPortDb.Split("/")[0];
+                var pgDb = pgHostPortDb.Split("/")[1];
+                var pgUser = pgUserPass.Split(":")[0];
+                var pgPass = pgUserPass.Split(":")[1];
+                var pgHost = pgHostPort.Split(":")[0];
+                var pgPort = pgHostPort.Split(":")[1];
+
+                connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+        }
+
             services.AddScoped<ITokenService, TokenService>();
-            services.AddDbContext<UserContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<VisitorContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<UserContext>(options => options.UseNpgsql(Configuration.GetConnectionString(connStr)));
+            services.AddDbContext<VisitorContext>(options => options.UseNpgsql(Configuration.GetConnectionString(connStr)));
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
         
