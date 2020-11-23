@@ -84,7 +84,7 @@ namespace tests
                 {"firstName", "Joanna"},
                 {"surname", "Fawl"},
                 {"role", "Academy Engineer"},
-                {"adminLevel", "Employee"},
+                {"adminLevel", "Manager"},
                 {"telephone", "07987654321"},
                 {"email", "jfawl@skillsforcare.org"},
                 {"location", "Manchester"},
@@ -275,5 +275,9 @@ namespace tests
             Assert.Equal(expectedResponse, jsonResponse);
             
         }
+
+
+
+
     }
 }
