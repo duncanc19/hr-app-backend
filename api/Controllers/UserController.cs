@@ -36,22 +36,17 @@ namespace HRApp.API.Controllers
         [HttpGet]
         public ActionResult<List<UserDb>> GetAll([FromHeader] string adminLevel, [FromHeader] string email)
         {
-            Console.WriteLine("*******************");
-            Console.WriteLine(adminLevel);
-            Console.WriteLine(email);
-            // if (adminLevel == "Admin") 
-            // {
+            if (adminLevel.Equals("Admin")) 
+            {
                 var allUsers = _userContext.User.ToList();
                 return Ok(new{users = allUsers});
-            // } 
-            // if (adminLevel == "Manager") 
-            // {
-            //     var allUsers = _userContext.User.Find(managerEmail)
-            //     return Ok(new{users = allUsers});
-            // } 
-            // return BadRequest(new {message = "You are not authorised to do this"});
-            
-            
+            } 
+            else if (adminLevel == "Manager") 
+            {
+                var managees = _userContext.User.Where(user => (user.ManagerEmail == email)).ToList();
+                return Ok(new{users = managees});
+            } 
+            return BadRequest(new {message = "You are not authorised to do this"});
         }
 
          // GET api/user/:id
