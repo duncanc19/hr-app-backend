@@ -59,5 +59,19 @@ namespace HRApp.API.Controllers
             }
             return Ok(new{visit = visit}); 
         }
+
+        // DELETE api/visitor/:id
+        [HttpDelete("{visitId}")]
+        public ActionResult<string> RemoveUser(Guid visitId)
+        {
+            var visit = _visitorContext.Visitor.Find(visitId);
+            if (visit == null)
+            {
+                return BadRequest(new {message = "Visit does not exist"});
+            }
+            _visitorContext.Visitor.Remove(visit);
+            _visitorContext.SaveChanges();
+            return Ok(new {message = "Visit has been deleted successfully" });
+        }
     }
 }

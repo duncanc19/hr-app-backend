@@ -51,7 +51,7 @@ namespace tests
         }
 
         [Fact]
-          public async Task GetVisitEndpointWithId()
+        public async Task GetVisitEndpointWithId()
         {
             // Arrange
             var apiClient = new HttpClient();
@@ -79,6 +79,35 @@ namespace tests
             {
                 Assert.Equal(expectedResponse[field.Key], jsonResponse["visit"][field.Key]);
             }
+        }
+
+        [Fact]
+        public async Task DeleteAVisit()
+        {
+            // Arrange
+            var apiClient = new HttpClient();
+            var newVisit = JToken.FromObject(new { FirstName = "John", Surname = "Doe", Company = "Disneyland", Role =  "Marketing", Telephone = "07716354633", Email = "johnd@disneyland.com", EmployeeEmail = "jfawl@skillsforcare.org", Appointment = new DateTime(2020,12,01,12,30,00)});
+
+            // Serialize our concrete class into a JSON String
+            var stringVisit = await Task.Run(() => JsonConvert.SerializeObject(newVisit));
+
+            // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
+            var httpContent = new StringContent(stringVisit, Encoding.UTF8, "application/json");
+
+            // Create a new visitor ready to delete
+            var postApiResponse = await apiClient.PostAsync($"http://localhost:5003/api/visitor", httpContent);
+            var postJsonResponse = JToken.Parse(await postApiResponse.Content.ReadAsStringAsync());
+            Console.WriteLine(postJsonResponse["visit"]["visitorId"]);
+            var visitId = postJsonResponse["visit"]["visitorId"];
+
+            var expectedResponse = JToken.FromObject(new { message = "Visit has been deleted successfully" });
+
+            // Act
+            var apiResponse = await apiClient.DeleteAsync($"http://localhost:5003/api/visitor/{visitId}");
+            var jsonResponse = JToken.Parse(await apiResponse.Content.ReadAsStringAsync());
+            
+            // Assert
+            Assert.Equal(expectedResponse, jsonResponse);
         }
     }
 }
