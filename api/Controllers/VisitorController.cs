@@ -81,5 +81,28 @@ namespace HRApp.API.Controllers
             _visitorContext.SaveChanges();
             return Ok(new {message = "Visit has been deleted successfully" });
         }
+
+        // PUT api/visit/:id
+        [HttpPut("{visitId}")]
+        public ActionResult<UserDb> EditVisitInfo(Guid visitId, [FromBody] VisitorDb info)
+        {
+            var visit = _visitorContext.Visitor.Find(visitId);
+
+            if (visit == null)
+            {
+                return BadRequest(new {message = "ID does not exist"});
+            }
+
+            // _userContext.User.SetValue(info);
+            foreach (var field in typeof (VisitorDb).GetProperties().Where(p => (p.GetValue(info) != null)))
+            {
+                if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
+                {
+                    field.SetValue(visit, field.GetValue(info));
+                }
+            }
+            _visitorContext.SaveChanges();
+            return Ok(new{ visit = visit});
+        }
     }
 }
