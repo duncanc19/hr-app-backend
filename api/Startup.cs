@@ -49,6 +49,8 @@ namespace api
             services.AddControllers();
             
             var env = System.Environment.GetEnvironmentVariable("JWT_SECRET");
+            Console.WriteLine("***********************");
+            Console.WriteLine(env);
             if (string.IsNullOrEmpty(env))
             {
                 var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -57,6 +59,8 @@ namespace api
                 env = appSettings.Secret;
             } 
             var key = Encoding.ASCII.GetBytes(env);
+            Console.WriteLine("***********************");
+            Console.WriteLine(key);
 
             services.AddAuthentication(options =>
             {
