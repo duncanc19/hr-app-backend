@@ -82,7 +82,7 @@ namespace api
             if (string.IsNullOrEmpty(databaseString))
             {
                 // Use connection string from file.
-                connStr = Configuration.GetConnectionString("DefaultConnection");
+                connStr = Configuration.GetConnectionString("DefaultConnection1");
             }
             else
             {
