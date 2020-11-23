@@ -30,9 +30,9 @@ namespace HRApp.API.Controllers
 
         // POST api/visitor
         [HttpPost]
-        public ActionResult<VisitorDb> AddVisitor([FromBody] VisitorDb info)
+        public ActionResult<VisitorDb> AddVisit([FromBody] VisitorDb info)
         {
-            VisitorDb newVisitor = new VisitorDb { 
+            VisitorDb newVisit = new VisitorDb { 
                 FirstName = info.FirstName,
                 Surname = info.Surname, 
                 Company = info.Company,
@@ -42,10 +42,22 @@ namespace HRApp.API.Controllers
                 EmployeeEmail = info.EmployeeEmail,
                 Appointment = info.Appointment,
             };
-            _visitorContext.Visitor.Add(newVisitor);
+            _visitorContext.Visitor.Add(newVisit);
             _visitorContext.SaveChanges();
 
-            return Ok(new{visitor = newVisitor});
+            return Ok(new{visit = newVisit});
+        }
+
+        // GET api/user/:id
+        [HttpGet("{visitId}")]
+        public ActionResult<VisitorDb> GetUserById(Guid visitId)
+        {
+            var visit = _visitorContext.Visitor.Find(visitId);
+
+            if (visit == null) {
+                return NotFound(new {message = "Visit does not exist"});
+            }
+            return Ok(new{visit = visit}); 
         }
     }
 }
