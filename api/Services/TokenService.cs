@@ -61,7 +61,14 @@ namespace HRApp.API.Services
             if (user == null) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            
+            string env = Environment.GetEnvironmentVariable("JWT_SECRET");
+            if (string.IsNullOrEmpty(env))
+            {
+                env = _appSettings.Secret;
+            } 
+            var key = Encoding.ASCII.GetBytes(env);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {

@@ -48,13 +48,13 @@ namespace api
 
             services.AddControllers();
             
-            Console.WriteLine("GetEnvironmentVariables: ");
-            foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-                Console.WriteLine("  {0} = {1}", de.Key, de.Value);
-                
+            // Console.WriteLine("GetEnvironmentVariables: ");
+            // foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+            //     Console.WriteLine("  {0} = {1}", de.Key, de.Value);
+
             string env = Environment.GetEnvironmentVariable("JWT_SECRET");
-            Console.WriteLine("***********************");
-            Console.WriteLine(env);
+            // Console.WriteLine("***********************");
+            // Console.WriteLine(env);
             if (string.IsNullOrEmpty(env))
             {
                 var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -62,9 +62,10 @@ namespace api
                 var appSettings = appSettingsSection.Get<AppSettings>();
                 env = appSettings.Secret;
             } 
+            // Console.WriteLine(env);
             var key = Encoding.ASCII.GetBytes(env);
-            Console.WriteLine("***********************");
-            Console.WriteLine(key);
+            // Console.WriteLine("***********************");
+            // Console.WriteLine(key);
 
             services.AddAuthentication(options =>
             {
