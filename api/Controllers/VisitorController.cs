@@ -22,9 +22,17 @@ namespace HRApp.API.Controllers
 
         // GET api/visitor
         [HttpGet]
-        public ActionResult<List<VisitorDb>> GetAll()
+        public ActionResult<List<VisitorDb>> GetAll([FromHeader] string adminLevel, [FromHeader] string email)
         {
-            var allVisitors = _visitorContext.Visitor.ToList();
+            var allVisitors = new List<VisitorDb>();
+            if (adminLevel.Equals("Admin"))
+            {
+                allVisitors = _visitorContext.Visitor.ToList();
+            }
+            else 
+            {
+                allVisitors = _visitorContext.Visitor.Where(visitor => (visitor.EmployeeEmail == email)).ToList();
+            }
             return Ok(new{visitors = allVisitors});
         }
 
