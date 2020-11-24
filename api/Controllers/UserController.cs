@@ -72,8 +72,7 @@ namespace HRApp.API.Controllers
             {
                 return BadRequest(new {message = "ID does not exist"});
             }
-
-            // _userContext.User.SetValue(info);
+            
             foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
             {
                 if (field.Name == "Password")
