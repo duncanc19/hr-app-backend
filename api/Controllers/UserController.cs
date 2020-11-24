@@ -7,6 +7,7 @@ using HRApp.API.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using HRApp.API.Services;
 
 namespace HRApp.API.Controllers
 {
@@ -99,7 +100,7 @@ namespace HRApp.API.Controllers
                     ManagerEmail = info.ManagerEmail,
                     AdminLevel = info.AdminLevel,
                     Salary = info.Salary,
-                    Password = info.Password
+                    Password = PasswordHash.HashPassword(info.Password)
                 };
 
                 _userContext.User.Add(newUser);
