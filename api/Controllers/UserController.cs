@@ -76,7 +76,12 @@ namespace HRApp.API.Controllers
             // _userContext.User.SetValue(info);
             foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
             {
-                if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
+                if (field.Name == "Password")
+                {
+                    var hashedPassword = PasswordHash.HashPassword(field.GetValue(info).ToString());
+                    field.SetValue(user, hashedPassword);
+                } 
+                else if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
                 {
                     field.SetValue(user, field.GetValue(info));
                 }
