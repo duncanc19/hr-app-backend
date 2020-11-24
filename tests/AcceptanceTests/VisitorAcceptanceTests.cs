@@ -50,23 +50,23 @@ namespace tests
             }
         }
 
-        // [Fact]
+        [Fact]
         public async Task GetVisitEndpointWithId()
         {
             // Arrange
             var apiClient = new HttpClient();
 
             
-            var visitId = "0aa862e4-68ee-45ed-873e-ee635f0b47e5";
+            var visitId = "cfe0d661-e890-4ab5-93c4-6f13eb769f74";
             var expectedResponse = new Dictionary<string, string>(){
-                {"firstName", "John"},
-                {"surname", "Doe"},
-                {"company", "Disneyland"},
-                {"role", "Marketing"},
-                {"telephone", "07716354633"},
-                {"email", "johnd@disneyland.com"},
-                {"employeeEmail", "jfawl@skillsforcare.org"}
-                // {"appointment", $"{new DateTime(2020,12,01,12,30,00).ToString("dd/MM/yyyy HH:mm:ss")}"}
+                {"firstName", "Bob"},
+                {"surname", "Ross"},
+                {"company", "NHS"},
+                {"role", "Doctor"},
+                {"telephone", "01234567890"},
+                {"email", "bobross@nhs.com"},
+                {"employeeEmail", "dcarter@skillsforcare.org"}
+                // {"appointment", $"{new DateTime(2020,12,18,15,30,00).ToString("dd/MM/yyyy HH:mm:ss")}"}
             };
 
             // Act
