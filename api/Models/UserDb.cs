@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
+// using System.Text.Json.Serialization;
 
 namespace HRApp.API.Models
 {
@@ -22,8 +22,7 @@ namespace HRApp.API.Models
         public string Salary { get; set; }
         public string ManagerEmail { get; set; }
         public DateTime DoB { get; set; }
-        
-        [JsonIgnore]
+        // [JsonIgnore]
         public string Password { get; set; }
     }
 }

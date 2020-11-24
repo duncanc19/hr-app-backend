@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using HRApp.API.Models;
 using Microsoft.AspNetCore.Cors;
 using HRApp.API.IServices;
+using HRApp.API.Services;
 
 namespace HRApp.API.Controllers
 {
