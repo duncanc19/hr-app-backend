@@ -80,19 +80,14 @@ namespace api
             
             string connStr;
             string databaseString = Environment.GetEnvironmentVariable("DATABASE_URL");
-            // string databaseString = "postgres://qqylwlibbqzfnt:4712d6c25092370e4e5fc34286c1c15c143a1039ec52562b7d79d51731cbf483@ec2-34-232-147-86.compute-1.amazonaws.com:5432/d97hs6fcue95i0";
             if (string.IsNullOrEmpty(databaseString))
             {
                 // Use connection string from file.
-                connStr = Environment.GetEnvironmentVariable("DefaultConnection1");
+                connStr = Configuration.GetConnectionString("DefaultConnection1");
             }
             else
             {
-
-                // var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
                 var databaseUri = new Uri(databaseString);
-                Console.WriteLine("*******************");
-                Console.WriteLine(databaseUri);
                 var userInfo = databaseUri.UserInfo.Split(':');
 
                 var builder = new NpgsqlConnectionStringBuilder
@@ -105,28 +100,6 @@ namespace api
                 };
 
                 connStr = builder.ToString();
-                
-                
-                // Parse connection URL to connection string for Npgsql
-                // databaseString =  databaseString.Replace("postgres://", string.Empty);
-                // var pgUserPass =    databaseString.Split("@")[0];
-                // var pgHostPortDb =  databaseString.Split("@")[1];
-                // var pgHostPort = pgHostPortDb.Split("/")[0];
-                // var pgDb = pgHostPortDb.Split("/")[1];
-                // var pgUser = pgUserPass.Split(":")[0];
-                // var pgPass = pgUserPass.Split(":")[1];
-                // var pgHost = pgHostPort.Split(":")[0];
-                // var pgPort = pgHostPort.Split(":")[1];
-
-                // connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
-                // "Server=ec2-34-232-147-86.compute-1.amazonaws.com;"
-                // "Port=5432;Username=qqylwlibbqzfnt;"
-                // "Password=4712d6c25092370e4e5fc34286c1c15c143a1039ec52562b7d79d51731cbf483;"
-                // "Database=d97hs6fcue95i0;"
-                // "SslMode=Require;"
-                // "TrustServerCertificate=true;"
-
-                
             }
 
             services.AddScoped<ITokenService, TokenService>();
