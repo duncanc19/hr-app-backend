@@ -20,5 +20,6 @@ namespace HRApp.API.Models
         public DateTime SignIn { get; set; }
         public DateTime SignOut { get; set; }
         public Boolean SignInFlag { get; set; }
+        public Boolean SignOutFlag { get; set; }
     }
 }
