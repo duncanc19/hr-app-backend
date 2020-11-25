@@ -93,7 +93,6 @@ namespace HRApp.API.Controllers
                 return BadRequest(new {message = "ID does not exist"});
             }
 
-            // _userContext.User.SetValue(info);
             foreach (var field in typeof (VisitorDb).GetProperties().Where(p => (p.GetValue(info) != null)))
             {
                 if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
