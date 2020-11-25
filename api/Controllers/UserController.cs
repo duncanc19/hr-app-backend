@@ -74,7 +74,7 @@ namespace HRApp.API.Controllers
             }
             
             foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
-            {
+            {   
                 if (field.Name == "Password")
                 {
                     return Unauthorized(new {message = "You are not authorized to change the password from this endpoint"});
@@ -113,7 +113,7 @@ namespace HRApp.API.Controllers
 
         // POST api/user
         [HttpPost]
-        public ActionResult<UserDb> AddUser([FromBody] UserDb info, [FromHeader] string adminLevel)
+        public ActionResult<UserDb> AddUser([FromBody] User info, [FromHeader] string adminLevel)
         {
             if (adminLevel == "Admin")
             {
