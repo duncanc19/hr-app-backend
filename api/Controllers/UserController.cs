@@ -117,6 +117,11 @@ namespace HRApp.API.Controllers
         {
             if (adminLevel == "Admin")
             {
+                var checkDuplicateEmail = _userContext.User.SingleOrDefault(x => x.Email == info.Email);
+                if (checkDuplicateEmail != null) {
+                    return BadRequest(new {message = "Email already exists"});
+                }
+
                 UserDb newUser = new UserDb { 
                     FirstName = info.FirstName,
                     Surname = info.Surname, 
@@ -128,7 +133,6 @@ namespace HRApp.API.Controllers
                     Salary = info.Salary,
                     Password = PasswordHash.HashPassword(info.Password)
                 };
-
                 _userContext.User.Add(newUser);
                 _userContext.SaveChanges();
                 return Ok(new{user = newUser});
