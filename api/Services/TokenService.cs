@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text;
 using HRApp.API.IServices;
+using HRApp.API.Services;
 using HRApp.API.Helpers;
 using HRApp.API.Models;
 using System.Collections.Generic;
@@ -26,20 +27,13 @@ namespace HRApp.API.Services
 
         public Token Authenticate(string email, string password)
         {
-
             string savedPasswordHash = _userContext.User.SingleOrDefault(x => x.Email == email).Password;
-            byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
-           
-            byte[] salt = new byte[16];
-            Array.Copy(hashBytes, 0, salt, 0, 16);
-
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 100000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            bool checkPassword = PasswordHash.ValidPassword(password, savedPasswordHash);
             
-            for (int i=0; i < 20; i++)
-                if (hashBytes[i+16] != hash[i])
+            if (!checkPassword)
+            {
                     throw new UnauthorizedAccessException();
-            
+            }
             
             var user = _userContext.User.SingleOrDefault(x => x.Email == email);
             if (user == null) return null;

@@ -75,18 +75,43 @@ namespace HRApp.API.Controllers
             
             foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
             {
-                if (field.Name == "Password")
-                {
-                    var hashedPassword = PasswordHash.HashPassword(field.GetValue(info).ToString());
-                    field.SetValue(user, hashedPassword);
-                } 
-                else if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
+                // if (field.Name == "Password")
+                // {
+                //     var hashedPassword = PasswordHash.HashPassword(field.GetValue(info).ToString());
+                //     field.SetValue(user, hashedPassword);
+                // } 
+                if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
                 {
                     field.SetValue(user, field.GetValue(info));
                 }
             }
             _userContext.SaveChanges();
             return Ok(new{ user = user});
+        }
+
+        // PUT api/user/:id/password
+        [HttpPut("{userId}/password")]
+        public ActionResult<string> ChangePassword(Guid userId, [FromBody] ChangePassword passwordObj)
+        {
+            var user = _userContext.User.Find(userId);
+
+            if (user == null)
+            {
+                return BadRequest(new {message = "User does not exist"});
+            };
+
+            string savedPasswordHash = user.Password;
+            bool oldPasswordMatches = PasswordHash.ValidPassword(passwordObj.OldPassword, savedPasswordHash);
+
+            if (!oldPasswordMatches) 
+            {
+                return BadRequest(new {message = "Old password is incorrect"});
+            };
+    
+            var newHashedPassword = PasswordHash.HashPassword(passwordObj.NewPassword);
+            user.Password = newHashedPassword;
+            _userContext.SaveChanges();
+            return Ok(new {message = "Password was successfully changed"});
         }
 
         // POST api/user
