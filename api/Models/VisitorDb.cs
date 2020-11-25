@@ -17,7 +17,8 @@ namespace HRApp.API.Models
         public string Email { get; set; }
         public string EmployeeEmail { get; set; }
         public DateTime Appointment { get; set; }
-        public DateTime CheckIn { get; set; }
-        public DateTime CheckOut { get; set; }
+        public DateTime SignIn { get; set; }
+        public DateTime SignOut { get; set; }
+        public Boolean SignInFlag { get; set; }
     }
 }
