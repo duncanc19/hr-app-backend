@@ -98,7 +98,7 @@ namespace HRApp.API.Controllers
             {
                 return BadRequest(new {message = "User does not exist"});
             };
-            string savedPasswordHash = user.Password;
+            string savedPasswordHash = user.Password; 
             bool oldPasswordMatches = PasswordHash.ValidPassword(passwordObj.OldPassword, savedPasswordHash);
 
             if (!oldPasswordMatches) 
