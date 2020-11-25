@@ -3,15 +3,17 @@ using System;
 using HRApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace api.Migrations.Visitor
 {
     [DbContext(typeof(VisitorContext))]
-    partial class VisitorContextModelSnapshot : ModelSnapshot
+    [Migration("20201125115426_SignInSignOutColumns")]
+    partial class SignInSignOutColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
