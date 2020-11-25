@@ -75,12 +75,11 @@ namespace HRApp.API.Controllers
             
             foreach (var field in typeof (UserDb).GetProperties().Where(p => (p.GetValue(info) != null)))
             {
-                // if (field.Name == "Password")
-                // {
-                //     var hashedPassword = PasswordHash.HashPassword(field.GetValue(info).ToString());
-                //     field.SetValue(user, hashedPassword);
-                // } 
-                if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
+                if (field.Name == "Password")
+                {
+                    return Unauthorized(new {message = "You are not authorized to change the password from this endpoint"});
+                } 
+                else if (!(field.PropertyType == typeof (DateTime) && field.GetValue(info).ToString() == new DateTime().ToString()))
                 {
                     field.SetValue(user, field.GetValue(info));
                 }
@@ -99,7 +98,6 @@ namespace HRApp.API.Controllers
             {
                 return BadRequest(new {message = "User does not exist"});
             };
-
             string savedPasswordHash = user.Password;
             bool oldPasswordMatches = PasswordHash.ValidPassword(passwordObj.OldPassword, savedPasswordHash);
 
@@ -107,7 +105,6 @@ namespace HRApp.API.Controllers
             {
                 return BadRequest(new {message = "Old password is incorrect"});
             };
-    
             var newHashedPassword = PasswordHash.HashPassword(passwordObj.NewPassword);
             user.Password = newHashedPassword;
             _userContext.SaveChanges();
