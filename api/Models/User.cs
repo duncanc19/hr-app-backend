@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace HRApp.API.Models
 {
-    public class UserDb 
+    public class User 
     {
         [Key]
         public Guid UserId { get; set; }
@@ -22,7 +22,6 @@ namespace HRApp.API.Models
         public string Salary { get; set; }
         public string ManagerEmail { get; set; }
         public DateTime DoB { get; set; }
-        [JsonIgnore]
         public string Password { get; set; }
     }
 }
