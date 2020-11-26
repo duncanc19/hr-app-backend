@@ -27,6 +27,9 @@ namespace HRApp.API.Services
 
         public Token Authenticate(string email, string password)
         {
+            var user = _userContext.User.SingleOrDefault(x => x.Email == email);
+            if (user == null) return null;
+
             string savedPasswordHash = _userContext.User.SingleOrDefault(x => x.Email == email).Password;
             bool checkPassword = PasswordHash.ValidPassword(password, savedPasswordHash);
             
@@ -34,9 +37,6 @@ namespace HRApp.API.Services
             {
                 return null;
             }
-            
-            var user = _userContext.User.SingleOrDefault(x => x.Email == email);
-            if (user == null) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             
