@@ -32,7 +32,7 @@ namespace HRApp.API.Services
             
             if (!checkPassword)
             {
-                    throw new UnauthorizedAccessException();
+                return null;
             }
             
             var user = _userContext.User.SingleOrDefault(x => x.Email == email);
@@ -52,7 +52,7 @@ namespace HRApp.API.Services
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Name, user.UserId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

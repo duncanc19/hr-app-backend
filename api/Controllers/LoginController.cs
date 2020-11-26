@@ -40,8 +40,10 @@ namespace HRApp.API.Controllers
         [HttpPost("authenticate")]
         public ActionResult Authenticate([FromBody] Login user)
         {
+            
             var token = _tokenService.Authenticate(user.Email, user.Password);
-            if (token == null) return BadRequest(new {message = "Email or password incorrect"});
+            
+            if (token == null) return Unauthorized(new {message = "Email or password incorrect"});
             
             return Ok(new {token = token.Info}); 
         }
