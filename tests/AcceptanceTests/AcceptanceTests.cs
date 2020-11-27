@@ -31,7 +31,7 @@ namespace tests
             Assert.Equal("This is the home page! Testing, testing...", stringResponse);
         }
 
-        // [Fact]
+        [Fact]
         public async Task LogsInWithCorrectEmailAndPassword()
         {
             var apiClient = new HttpClient();
@@ -64,7 +64,7 @@ namespace tests
             Assert.False(apiResponse.IsSuccessStatusCode);
         }
 
-        // [Fact]
+        //[Fact]
         public async Task GetUserEndpointWithId()
         {
             // Arrange
@@ -107,7 +107,7 @@ namespace tests
             }
         }
         
-        // [Fact]
+       //[Fact]
         public async Task GetUserEndpointWithInvalidId()
         {
             // Arrange
